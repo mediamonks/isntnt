@@ -4,9 +4,9 @@ import { isInt } from '../predicates'
 import { Predicate } from '../types'
 
 export const int = (bitDepth: number): Predicate<number> => {
-  const boundry = Math.pow(2, bitDepth) / 2
-  const isMinBoundry = min(-boundry)
-  const isBelowBoundry = below(boundry)
+  const boundary = Math.pow(2, bitDepth) / 2
+  const isMinBoundary = min(-boundary)
+  const isBelowBoundary = below(boundary)
   return (value: any): value is number =>
-    isInt(value) && isMinBoundry(value) && isBelowBoundry(value)
+    isInt(value) && isMinBoundary(value) && isBelowBoundary(value)
 }
