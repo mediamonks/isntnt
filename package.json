@@ -1,0 +1,20 @@
+{
+  "name": "isntnt",
+  "version": "1.0.0",
+  "description": "runtime type guards with TypeScript static types",
+  "main": "dist/index.js",
+  "author": "Nathan Uphoff",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn && yarn watch",
+    "watch": "tsc -w -d --skipLibCheck",
+    "build": "jest -u --collectCoverage && rimraf dist && tsc -d --skipLibCheck",
+    "test": "jest --watchAll --coverage"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.17",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.2"
+  }
+}
