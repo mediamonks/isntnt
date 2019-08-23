@@ -1,4 +1,7 @@
-import { uint } from '../generics'
-import { Predicate } from '../types'
+import { isInt } from './isInt'
+import { isPositive } from './isPositive'
 
-export const isUint32: Predicate<number> = uint(32)
+const ceiling = Math.pow(2, 32)
+
+export const isUint32 = (value: any): value is number =>
+  isInt(value) && isPositive(value) && value < ceiling

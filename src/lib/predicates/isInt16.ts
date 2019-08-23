@@ -1,4 +1,6 @@
-import { int } from '../generics'
-import { Predicate } from '../types'
+import { isInt } from './isInt'
 
-export const isInt16: Predicate<number> = int(16)
+const boundary = Math.pow(2, 16) / 2
+
+export const isInt16 = (value: any): value is number =>
+  isInt(value) && value >= -boundary && value < boundary

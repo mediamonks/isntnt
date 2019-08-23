@@ -1,12 +1,10 @@
+import { Predicate } from '../types'
 import { below } from './below'
 import { min } from './min'
 import { isInt } from '../predicates'
-import { Predicate } from '../types'
+import { and } from './and'
 
 export const int = (bitDepth: number): Predicate<number> => {
   const boundary = Math.pow(2, bitDepth) / 2
-  const isMinBoundary = min(-boundary)
-  const isBelowBoundary = below(boundary)
-  return (value: any): value is number =>
-    isInt(value) && isMinBoundary(value) && isBelowBoundary(value)
+  return and(isInt, min(-boundary), below(boundary))
 }

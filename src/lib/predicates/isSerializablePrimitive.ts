@@ -1,9 +1,13 @@
 import { Predicate, SerializablePrimitive } from '../types'
+import { isBoolean } from './isBoolean'
+import { isNull } from './isNull'
+import { isSerializableNumber } from './isSerializableNumber'
+import { isString } from './isString'
 
 export const isSerializablePrimitive: Predicate<SerializablePrimitive> = (
   value: any,
 ): value is SerializablePrimitive =>
-  value === null ||
-  (typeof value !== 'object' &&
-    typeof value !== 'function' &&
-    typeof value !== 'symbol')
+  isNull(value) ||
+  isString(value) ||
+  isSerializableNumber(value) ||
+  isBoolean(value)
