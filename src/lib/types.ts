@@ -3,6 +3,8 @@ export type Static<T extends Predicate<any>> = T extends Predicate<infer R>
   ? R
   : never
 
+export type ObjectWith<K extends PropertyKey> = { [P in K]: unknown }
+
 export type Constructor<T> = {
   new (...rest: Array<any>): T
 }
@@ -24,6 +26,8 @@ export type Something =
   | symbol
   | object
   | {}
+
+export type ObjectLike = ObjectWith<PropertyKey>
 
 export type Primitive =
   | null

@@ -1,6 +1,5 @@
-import { isInt } from '../predicates'
+import { isInt, isPositive } from '../predicates'
 import { Predicate } from '../types'
-import { isPositive } from '../predicates/isPositive'
 import { and } from './and'
 import { below } from './below'
 

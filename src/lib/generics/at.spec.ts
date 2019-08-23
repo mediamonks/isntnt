@@ -1,4 +1,4 @@
-import { at } from '../generics'
+import { at } from './at'
 import { isAny, isSomething, isObject, isString } from '../predicates'
 
 describe('at', () => {
