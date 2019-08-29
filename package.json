@@ -1,7 +1,7 @@
 {
   "name": "isntnt",
   "version": "1.0.0",
-  "description": "TypeScript runtime type guards",
+  "description": "A collection of composable JavaScript runtime type predicates with TypeScript type guard declarations",
   "main": "dist/index.js",
   "author": "Nathan Uphoff",
   "license": "MIT",
@@ -9,8 +9,7 @@
     "start": "yarn && yarn watch",
     "watch": "tsc -w -d --skipLibCheck",
     "build": "jest -u --collectCoverage && rimraf dist && tsc -d --skipLibCheck",
-    "test": "jest --watchAll --coverage",
-    "clear_jest": "jest --clearCache"
+    "test": "jest --watchAll --coverage"
   },
   "devDependencies": {
     "@types/jest": "^24.0.17",
