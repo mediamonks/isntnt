@@ -339,3 +339,65 @@ isWeakMap(value) // value is WeakMap<any, unknown>
 ```typescript
 isWithLength(value) // value is { length: number }
 ```
+
+# Types
+
+## Intersect
+
+```typescript
+Intersect<A | B> // A & B
+```
+
+## None
+
+```typescript
+None // null | undefined
+```
+
+## Predicate
+
+```typescript
+Predicate<T> // (value: unknown, ...rest: Array<unknown>) => value is T
+```
+
+## Primitive
+
+```typescript
+Primitive // null | undefined | boolean | number | string | symbol | bigint
+```
+
+## Serializable
+
+```typescript
+Primitive // SerializableArray<any> | SerializableObject | SerializablePrimitive
+```
+
+## SerializableArray
+
+```typescript
+SerializableArray<any> // Serializable
+```
+
+## SerializableObject
+
+```typescript
+SerializableObject // { [key: string]: Serializable }
+```
+
+## SerializablePrimitive
+
+```typescript
+SerializableObject // null | boolean | number | string
+```
+
+## Some
+
+```typescript
+Some // Function | boolean | bigin | number | string | symbol | object
+```
+
+## Static
+
+```typescript
+Static<Predicate<T>> // T
+```
