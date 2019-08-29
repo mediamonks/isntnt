@@ -3,5 +3,5 @@ import { isPositive } from './isPositive'
 
 const ceiling = Math.pow(2, 16)
 
-export const isUint16 = (value: any): value is number =>
+export const isUint16 = (value: unknown): value is number =>
   isInt(value) && isPositive(value) && value < ceiling

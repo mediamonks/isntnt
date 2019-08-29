@@ -5,7 +5,7 @@ import { isSerializableNumber } from './isSerializableNumber'
 import { isString } from './isString'
 
 export const isSerializablePrimitive: Predicate<SerializablePrimitive> = (
-  value: any,
+  value: unknown,
 ): value is SerializablePrimitive =>
   isNull(value) ||
   isString(value) ||

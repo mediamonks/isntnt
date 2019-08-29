@@ -1,19 +1,21 @@
 import { isInt8 } from '../predicates'
 
+const [min, max] = [-128, 127]
+
 describe('isInt8', () => {
   test('is a function', () => {
     expect(isInt8).toBeInstanceOf(Function)
   })
 
-  test('returns true for an integer within a range of -128 to 127', () => {
+  test(`returns true for an integer within a range of ${min} to ${max}`, () => {
     expect(isInt8(0)).toBe(true)
-    expect(isInt8(127)).toBe(true)
-    expect(isInt8(-128)).toBe(true)
+    expect(isInt8(max)).toBe(true)
+    expect(isInt8(min)).toBe(true)
   })
 
-  test('returns false for an integer outside a range of -128 to 127', () => {
-    expect(isInt8(128)).toBe(false)
-    expect(isInt8(-129)).toBe(false)
+  test(`returns false for an integer outside a range of ${min} to ${max}1`, () => {
+    expect(isInt8(max + 1)).toBe(false)
+    expect(isInt8(min - 1)).toBe(false)
   })
 
   test('returns false for Infinity', () => {

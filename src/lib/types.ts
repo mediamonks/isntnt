@@ -1,4 +1,7 @@
-export type Predicate<T> = (value: any, ...rest: Array<unknown>) => value is T
+export type Predicate<T> = (
+  value: unknown,
+  ...rest: Array<unknown>
+) => value is T
 export type Static<T extends Predicate<any>> = T extends Predicate<infer R>
   ? R
   : never
@@ -38,10 +41,10 @@ export type Primitive =
   | symbol
   | bigint
 
+export interface SerializableArray<T extends Serializable> extends Array<T> {}
 export type SerializablePrimitive = null | boolean | number | string
 export type SerializableObject = { [key: string]: Serializable }
-export type SerializableArray = { [key: number]: Serializable }
 export type Serializable =
   | SerializablePrimitive
   | SerializableObject
-  | SerializableArray
+  | SerializableArray<any>

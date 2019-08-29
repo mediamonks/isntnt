@@ -1,19 +1,21 @@
 import { isInt16 } from '../predicates'
 
+const [min, max] = [-32_768, 32_767]
+
 describe('isInt16', () => {
   test('is a function', () => {
     expect(isInt16).toBeInstanceOf(Function)
   })
 
-  test('returns true for an integer within a range of -32,768 to 32,767', () => {
+  test(`returns true for an integer within a range of ${min} to ${max}`, () => {
     expect(isInt16(0)).toBe(true)
-    expect(isInt16(32767)).toBe(true)
-    expect(isInt16(-32768)).toBe(true)
+    expect(isInt16(max)).toBe(true)
+    expect(isInt16(min)).toBe(true)
   })
 
-  test('returns false for an integer outside a range of -32,768 to 32,767', () => {
-    expect(isInt16(32768)).toBe(false)
-    expect(isInt16(-32769)).toBe(false)
+  test(`returns false for an integer outside a range of ${min} to ${max}1`, () => {
+    expect(isInt16(max + 1)).toBe(false)
+    expect(isInt16(min - 1)).toBe(false)
   })
 
   test('returns false for Infinity', () => {

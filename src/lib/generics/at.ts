@@ -4,5 +4,5 @@ import { isObjectLike } from '../predicates/isObjectLike'
 export const at = <K extends PropertyKey, T extends Predicate<any>>(
   key: K,
   predicate: T,
-) => (value: any): value is { [P in K]: Static<T> } =>
+) => <I>(value: I): value is I & { [P in K]: Static<T> } =>
   isObjectLike(value) && predicate(value[key])
