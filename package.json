@@ -4,11 +4,11 @@
   "description": "A collection of composable JavaScript runtime type predicates with TypeScript type guard declarations",
   "main": "dist/index.js",
   "author": "Nathan Uphoff",
-  "license": "MIT",
+  "license": "WTFPL",
   "scripts": {
     "start": "yarn && yarn watch",
     "watch": "tsc -w -d --skipLibCheck",
-    "build": "jest -u --collectCoverage && rimraf dist && tsc -d --skipLibCheck",
+    "build": "jest -u --silent --collectCoverage && rimraf dist && tsc -d --skipLibCheck",
     "test": "jest --watchAll --coverage"
   },
   "devDependencies": {
