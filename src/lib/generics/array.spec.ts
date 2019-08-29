@@ -1,5 +1,5 @@
 import { array } from '../generics'
-import { isAny, isSomething, isNever } from '../predicates'
+import { isAny, isSome, isNever } from '../predicates'
 
 describe('array', () => {
   test('is a function', () => {
@@ -20,8 +20,8 @@ describe('array', () => {
   test('returns true if every of its Array elements evaluates to true', () => {
     const isAnyArray = array(isAny)
     expect(isAnyArray([1, 2, 3])).toBe(true)
-    const isSomethingArray = array(isSomething)
-    expect(isSomethingArray([1, 'abc', {}])).toBe(true)
+    const isSomeArray = array(isSome)
+    expect(isSomeArray([1, 'abc', {}])).toBe(true)
   })
 
   test('returns false if its input is not an Array', () => {
@@ -33,15 +33,15 @@ describe('array', () => {
   })
 
   test('returns false if some of its Array elements evaluates to true', () => {
-    const isSomethingArray = array(isSomething)
-    expect(isSomethingArray([1, 'abc', null])).toBe(false)
-    const isObjectArray = array(isSomething)
+    const isSomeArray = array(isSome)
+    expect(isSomeArray([1, 'abc', null])).toBe(false)
+    const isObjectArray = array(isSome)
     expect(isObjectArray([null, {}, []])).toBe(false)
   })
 
   test('returns false if none of its Array elements evaluates to true', () => {
-    const isSomethingArray = array(isSomething)
-    expect(isSomethingArray([null, undefined, NaN])).toBe(false)
+    const isSomeArray = array(isSome)
+    expect(isSomeArray([null, undefined, NaN])).toBe(false)
     const isNeverArray = array(isNever)
     expect(isNeverArray([1, 'abc', true])).toBe(false)
   })

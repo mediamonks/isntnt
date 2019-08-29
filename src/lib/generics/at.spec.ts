@@ -1,5 +1,5 @@
 import { at } from './at'
-import { isAny, isSomething, isObject, isString } from '../predicates'
+import { isAny, isSome, isObject, isString } from '../predicates'
 
 describe('at', () => {
   test('is a function', () => {
@@ -30,7 +30,7 @@ describe('at', () => {
   })
 
   test('returns false if the value at a given key evaluates to false', () => {
-    const isObjectAtFoo = at('foo', isSomething)
+    const isObjectAtFoo = at('foo', isSome)
     expect(isObjectAtFoo({ foo: null })).toBe(false)
     const isStringAtBar = at('bar', isString)
     expect(isStringAtBar({ bar: 42 })).toBe(false)

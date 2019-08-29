@@ -1,13 +1,9 @@
 import { Predicate, Intersect, Static } from '../types'
 import { isAny } from '../predicates/isAny'
-import { isFunction } from '../predicates/isFunction'
 
 export const and = <T extends Array<Predicate<any>>>(
   ...predicates: T
 ): Predicate<Intersect<Static<T[number]>>> => {
-  if (!predicates.every(isFunction)) {
-    throw new TypeError(`Every predicate for and must be a function`)
-  }
   const length = predicates.length
   switch (length) {
     case 0: {

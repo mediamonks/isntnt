@@ -1,7 +1,7 @@
 {
   "name": "isntnt",
   "version": "1.0.0",
-  "description": "runtime type guards with TypeScript static types",
+  "description": "TypeScript runtime type guards",
   "main": "dist/index.js",
   "author": "Nathan Uphoff",
   "license": "MIT",

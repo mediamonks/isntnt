@@ -16,8 +16,8 @@ export type Intersect<T> = (T extends any ? (k: T) => void : never) extends ((
   ? I
   : never
 
-export type Nothing = null | undefined
-export type Something =
+export type None = null | undefined
+export type Some =
   | Function
   | boolean
   | bigint

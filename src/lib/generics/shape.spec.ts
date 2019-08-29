@@ -1,6 +1,5 @@
 import { shape } from '../generics'
-import { isString } from '../predicates/isString'
-import { isInt } from '../predicates/isInt'
+import { isString, isInt } from '../predicates'
 
 describe('shape', () => {
   test('is a function', () => {
