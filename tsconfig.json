@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": false,
     "sourceMap": true,
     "esModuleInterop": true,
-    "module": "es6",
+    "module": "commonjs",
     "outDir": "dist"
   }
 }
