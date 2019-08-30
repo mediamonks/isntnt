@@ -1,6 +1,6 @@
 {
   "name": "isntnt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of composable JavaScript runtime type predicates with TypeScript type guard declarations",
   "main": "dist/index.js",
   "author": "Nathan Uphoff",
