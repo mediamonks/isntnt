@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "A collection of composable JavaScript runtime type predicates with TypeScript type guard declarations",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Nathan Uphoff",
   "license": "WTFPL",
   "scripts": {
