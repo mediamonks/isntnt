@@ -3,8 +3,8 @@
 .cache
 .vscode
 .idea
-logs/
-dist/
-coverage/
-node_modules/
-examples/
+logs
+node_modules
+/src
+/examples
+/coverage
