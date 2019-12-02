@@ -6,7 +6,7 @@ export const shape = <T extends Record<PropertyKey, Predicate<any>>>(
   shape: T,
 ) => {
   const predicates = Object.keys(shape).map((key) => at(key, shape[key]))
-  return (value: any): value is { [K in keyof T]: Static<T[K]> } => {
+  return (value: unknown): value is { [K in keyof T]: Static<T[K]> } => {
     const isObjectValue = isObject(value)
     if (isObjectValue) {
       for (let i = 0; i < predicates.length; ++i) {

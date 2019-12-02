@@ -1,4 +1,4 @@
-import { Predicate, Some } from '../types'
+import { Predicate } from '../types'
 import { and } from '../generics/and'
 import { isSome } from './isSome'
 

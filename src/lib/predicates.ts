@@ -1,5 +1,6 @@
 export { isAny } from './predicates/isAny'
 export { isArray } from './predicates/isArray'
+export { isArrayLike } from './predicates/isArrayLike'
 export { isBigInt } from './predicates/isBigInt'
 export { isBoolean } from './predicates/isBoolean'
 export { isDate } from './predicates/isDate'
