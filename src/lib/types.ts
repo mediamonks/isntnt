@@ -12,10 +12,10 @@ export type Constructor<T> = {
   new (...rest: Array<any>): T
 }
 
-// see https://stackoverflow.com/a/50375286
-export type Intersect<T> = (T extends any ? (k: T) => void : never) extends ((
-  k: infer I,
-) => void)
+// see https://github.com/Microsoft/TypeScript/issues/29594#issuecomment-507673155
+export type Intersect<T> = (T extends any
+? (k: T) => void
+: never) extends (k: infer I) => void
   ? I
   : never
 
@@ -40,10 +40,10 @@ export type Primitive =
   | symbol
   | bigint
 
-export interface SerializableArray<T extends Serializable> extends Array<T> {}
+export type SerializableArray = Array<Serializable>
 export type SerializablePrimitive = null | boolean | number | string
 export type SerializableObject = { [key: string]: Serializable }
 export type Serializable =
   | SerializablePrimitive
   | SerializableObject
-  | SerializableArray<any>
+  | SerializableArray
