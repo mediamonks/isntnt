@@ -5,91 +5,99 @@ Isntnt is a collection of composable JavaScript runtime type predicates with Typ
 ## above
 
 ```typescript
-const isAboveZero = above(0) // (value: any) => value is number
+const isAboveZero = above(0) // (value: unknown) => value is number
 ```
 
 ## and
 
 ```typescript
-const isBetween0And21 = and(above(0), below(21)) // (value: any) => value is number
+const isBetween0And21 = and(above(0), below(21)) // (value: unknown) => value is number
 ```
 
 ## array
 
 ```typescript
-const isAnyArray = array(isAny) // (value: any) => value is Array<any>
+const isAnyArray = array(isAny) // (value: unknown) => value is Array<any>
 ```
 
 ## at
 
 ```typescript
-const isAnyAtFoo = at('foo', isAny) // (value: any) => value is { foo: any }
+const isAnyAtFoo = at('foo', isAny) // (value: unknown) => value is { foo: any }
 ```
 
 ## below
 
 ```typescript
-const isBelow21 = below(21) // (value: any) => value is { foo: any }
+const isBelow21 = below(21) // (value: unknown) => value is { foo: any }
 ```
 
 ## either
 
 ```typescript
-const isFooOrBar = either('foo', 'bar') // (value: any) => value is 'foo' | 'bar'
+const isFooOrBar = either('foo', 'bar') // (value: unknown) => value is 'foo' | 'bar'
 ```
 
 ## instance
 
 ```typescript
-const isInstanceofString = instance(String) // (value: any) => value is String
+const isInstanceofString = instance(String) // (value: unknown) => value is String
 ```
 
 ## literal
 
 ```typescript
-const is42 = literal(42) // (value: any) => value is 42
+const is42 = literal(42) // (value: unknown) => value is 42
 ```
 
 ## max
 
 ```typescript
-const isMax255 = max(255) // (value: any) => value is number
+const isMax255 = max(255) // (value: unknown) => value is number
 ```
 
 ## min
 
 ```typescript
-const isMin18 = min(18) // (value: any) => value is number
+const isMin18 = min(18) // (value: unknown) => value is number
 ```
 
 ## object
 
 ```typescript
-const isEnum = object(isNumber) // (value: any) => value is ObjectOf<number>
+const isEnum = object(isNumber) // (value: unknown) => value is ObjectOf<number>
 ```
 
 ## or
 
 ```typescript
-const isStringOrNumber = or(isString, isNumber) // (value: any) => value is string | number
+const isStringOrNumber = or(isString, isNumber) // (value: unknown) => value is string | number
 ```
+
+## record
+
+```typescript
+const isDict = record(isString, isString) // (value: unknown) => value is Record<string, string>
+```
+
+Note: `record` is limited to `string` and `symbol` type keys.
 
 ## shape
 
 ```typescript
-const isPosition = shape({ x: isNumber, y: isNumber }) // (value: any) => value is { x: number, y: number }
+const isPosition = shape({ x: isNumber, y: isNumber }) // (value: unknown) => value is { x: number, y: number }
 ```
 
 ## test
 
 ```typescript
-const isSlug = test(/^[\w-]+$/) // (value: any) => value is string
+const isSlug = test(/^[\w-]+$/) // (value: unknown) => value is string
 ```
 
 ## tuple
 
 ```typescript
-const isEntry = tuple(isNumber, isNumber) // (value: any) => value is [number, number]
+const isEntry = tuple(isNumber, isNumber) // (value: unknown) => value is [number, number]
 ```
 
 # Predicates
@@ -104,6 +112,12 @@ isAny(value) // value is any
 
 ```typescript
 isArray(value) // value is Array<unknown>
+```
+
+## isArrayLike
+
+```typescript
+isArrayLike(value) // value is Record<number, unknown>
 ```
 
 ## isBigInt
@@ -369,13 +383,13 @@ Primitive // null | undefined | boolean | number | string | symbol | bigint
 ## Serializable
 
 ```typescript
-Primitive // SerializableArray<any> | SerializableObject | SerializablePrimitive
+Serializable // SerializableArray | SerializableObject | SerializablePrimitive
 ```
 
 ## SerializableArray
 
 ```typescript
-SerializableArray<any> // Serializable
+SerializableArray // Array<Serializable>
 ```
 
 ## SerializableObject
@@ -393,7 +407,7 @@ SerializableObject // null | boolean | number | string
 ## Some
 
 ```typescript
-Some // Function | boolean | bigin | number | string | symbol | object
+Some // Function | boolean | bigint | number | string | symbol | object
 ```
 
 ## Static
