@@ -11,11 +11,11 @@ describe('or', () => {
   })
 
   test('returns its input if a single argument is provided', () => {
-    const input = (value: any): value is 1 => value === 1
+    const input = (value: unknown): value is 1 => value === 1
     expect(or(input)).toBe(input)
   })
 
-  test('returns true if every of its provided predicates evalute to true', () => {
+  test('returns true if every of its provided predicates evaluates to true', () => {
     const isAnyOrSome = or(isAny, isSome)
     expect(isAnyOrSome({})).toBe(true)
     const isAnyOrSomeOrObject = or(isAny, isSome, isObject)
@@ -28,7 +28,7 @@ describe('or', () => {
     expect(is6TimesAny(null)).toBe(true)
   })
 
-  test('returns true if some of its provided predicate evalute to true', () => {
+  test('returns true if some of its provided predicate evaluates to true', () => {
     const isAnyOrNever = or(isAny, isNever)
     expect(isAnyOrNever({})).toBe(true)
     const isAnyOrNeverOrObject = or(isAny, isNever, isObject)
@@ -41,7 +41,7 @@ describe('or', () => {
     expect(is6TimesAnyOrSome(null)).toBe(true)
   })
 
-  test('returns false if none of its provided predicates evalute to true', () => {
+  test('returns false if none of its provided predicates evaluates to true', () => {
     const isSomeOrString = or(isSome, isObject)
     expect(isSomeOrString(null)).toBe(false)
     const isSomeOrObjectOrArray = or(isSome, isObject, isArray)

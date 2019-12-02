@@ -11,11 +11,11 @@ describe('and', () => {
   })
 
   test('returns its input if a single argument is provided', () => {
-    const input = (value: any): value is 1 => value === 1
+    const input = (value: unknown): value is 1 => value === 1
     expect(and(input)).toBe(input)
   })
 
-  test('returns true if every of its provided predicates evalute to true', () => {
+  test('returns true if every of its provided predicates evaluates to true', () => {
     const isAnyAndSome = and(isAny, isSome)
     expect(isAnyAndSome({})).toBe(true)
     const isAnyAndSomeAndObject = and(isAny, isSome, isObject)
@@ -28,7 +28,7 @@ describe('and', () => {
     expect(is6TimesAny(null)).toBe(true)
   })
 
-  test('returns false if some of its provided predicate evalute to true', () => {
+  test('returns false if some of its provided predicate evaluates to true', () => {
     const isAnyAndNever = and(isAny, isNever)
     expect(isAnyAndNever({})).toBe(false)
     const isAnyAndNeverAndObject = and(isAny, isNever, isObject)
@@ -48,7 +48,7 @@ describe('and', () => {
     expect(is5TimesAnyAnd1TimesNever(null)).toBe(false)
   })
 
-  test('returns false if none of its provided predicates evalute to true', () => {
+  test('returns false if none of its provided predicates evaluates to true', () => {
     const isSomeAndString = and(isSome, isObject)
     expect(isSomeAndString(null)).toBe(false)
     const isSomeAndObjectAndArray = and(isSome, isObject, isArray)
