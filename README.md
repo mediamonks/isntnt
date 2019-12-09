@@ -38,6 +38,12 @@ const isBelow21 = below(21) // (value: unknown) => value is { foo: any }
 const isFooOrBar = either('foo', 'bar') // (value: unknown) => value is 'foo' | 'bar'
 ```
 
+## has
+
+```typescript
+const hasFoo = has('foo') // (value: unknown) => value is { 'foo': unknown }
+```
+
 ## instance
 
 ```typescript
@@ -62,10 +68,28 @@ const isMax255 = max(255) // (value: unknown) => value is number
 const isMin18 = min(18) // (value: unknown) => value is number
 ```
 
+## noneable
+
+```typescript
+const isNoneableString = noneable(isString) // (value: unknown) => value is string | null | undefined
+```
+
+## nullable
+
+```typescript
+const isNullableString = nullable(isString) // (value: unknown) => value is string | null
+```
+
 ## object
 
 ```typescript
 const isEnum = object(isNumber) // (value: unknown) => value is ObjectOf<number>
+```
+
+## optional
+
+```typescript
+const isOptionalString = optional(isString) // (value: unknown) => value is string | undefined
 ```
 
 ## or
@@ -77,7 +101,7 @@ const isStringOrNumber = or(isString, isNumber) // (value: unknown) => value is 
 ## record
 
 ```typescript
-const isDict = record(isString, isString) // (value: unknown) => value is Record<string, string>
+const isEnum = record(isString, isNumber) // (value: unknown) => value is Record<string, number>
 ```
 
 Note: `record` is limited to `string` and `symbol` type keys.
@@ -141,7 +165,7 @@ isDate(value) // value is Date
 ## isDictionary
 
 ```typescript
-isDicionary(value) // value is ObjectOf<string>
+isDictionary(value) // value is ObjectOf<string>
 ```
 
 ## isFalse
