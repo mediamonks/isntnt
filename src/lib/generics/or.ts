@@ -45,8 +45,8 @@ export const or = <T extends Array<Predicate<any>>>(
           if (predicates[i](value)) {
             return true
           }
-          return false
         }
+        return false
       }) as any
     }
   }

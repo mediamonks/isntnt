@@ -1,5 +1,5 @@
 import { and } from '../generics'
-import { isAny, isSome, isNever, isObject, isArray } from '../predicates'
+import { isAny, isNever } from '../predicates'
 
 describe('and', () => {
   test('is a function', () => {
@@ -16,10 +16,10 @@ describe('and', () => {
   })
 
   test('returns true if every of its provided predicates evaluates to true', () => {
-    const isAnyAndSome = and(isAny, isSome)
+    const isAnyAndSome = and(isAny, isAny)
     expect(isAnyAndSome({})).toBe(true)
-    const isAnyAndSomeAndObject = and(isAny, isSome, isObject)
-    expect(isAnyAndSomeAndObject({})).toBe(true)
+    const is3TimesAny = and(isAny, isAny, isAny)
+    expect(is3TimesAny({})).toBe(true)
     const is4TimesAny = and(isAny, isAny, isAny, isAny)
     expect(is4TimesAny(null)).toBe(true)
     const is5TimesAny = and(isAny, isAny, isAny, isAny, isAny)
@@ -31,28 +31,28 @@ describe('and', () => {
   test('returns false if some of its provided predicate evaluates to true', () => {
     const isAnyAndNever = and(isAny, isNever)
     expect(isAnyAndNever({})).toBe(false)
-    const isAnyAndNeverAndObject = and(isAny, isNever, isObject)
-    expect(isAnyAndNeverAndObject({})).toBe(false)
-    const is3TimesAnyAnd1TimesNever = and(isAny, isAny, isAny, isNever)
-    expect(is3TimesAnyAnd1TimesNever(null)).toBe(false)
-    const is4TimesAnyAnd1TimesNever = and(isAny, isAny, isAny, isAny, isNever)
-    expect(is4TimesAnyAnd1TimesNever(null)).toBe(false)
-    const is5TimesAnyAnd1TimesNever = and(
+    const is3TimesAnyAndNever = and(isAny, isNever, isAny)
+    expect(is3TimesAnyAndNever(null)).toBe(false)
+    const is4TimesAnyAndNever = and(isAny, isNever, isAny, isNever)
+    expect(is4TimesAnyAndNever(null)).toBe(false)
+    const is5TimesAnyAndNever = and(isAny, isNever, isAny, isNever, isAny)
+    expect(is5TimesAnyAndNever(null)).toBe(false)
+    const is6TimesAnyAndNever = and(
       isAny,
+      isNever,
       isAny,
-      isAny,
-      isAny,
+      isNever,
       isAny,
       isNever,
     )
-    expect(is5TimesAnyAnd1TimesNever(null)).toBe(false)
+    expect(is6TimesAnyAndNever({})).toBe(false)
   })
 
   test('returns false if none of its provided predicates evaluates to true', () => {
-    const isSomeAndString = and(isSome, isObject)
+    const isSomeAndString = and(isNever, isNever)
     expect(isSomeAndString(null)).toBe(false)
-    const isSomeAndObjectAndArray = and(isSome, isObject, isArray)
-    expect(isSomeAndObjectAndArray(null)).toBe(false)
+    const is3TimeNever = and(isNever, isNever, isNever)
+    expect(is3TimeNever(null)).toBe(false)
     const is4TimesNever = and(isNever, isNever, isNever, isNever)
     expect(is4TimesNever(null)).toBe(false)
     const is5TimesNever = and(isNever, isNever, isNever, isNever, isNever)
