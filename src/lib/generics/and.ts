@@ -28,8 +28,7 @@ export const and = <T extends Array<Predicate<any>>>(
       const b = predicates[1]
       const c = predicates[2]
       const d = predicates[3]
-      return ((value: unknown) =>
-        a(value) && b(value) && c(value) && d(value)) as any
+      return ((value: unknown) => a(value) && b(value) && c(value) && d(value)) as any
     }
     case 5: {
       const a = predicates[0]
@@ -37,8 +36,7 @@ export const and = <T extends Array<Predicate<any>>>(
       const c = predicates[2]
       const d = predicates[3]
       const e = predicates[4]
-      return ((value: unknown) =>
-        a(value) && b(value) && c(value) && d(value) && e(value)) as any
+      return ((value: unknown) => a(value) && b(value) && c(value) && d(value) && e(value)) as any
     }
     default: {
       return ((value: unknown) => {

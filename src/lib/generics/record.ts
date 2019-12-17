@@ -1,10 +1,7 @@
 import { Predicate, Static } from '../types'
 import { isObject } from '../predicates'
 
-export const record = <
-  K extends Predicate<string | symbol>,
-  T extends Predicate<any>
->(
+export const record = <K extends Predicate<string | symbol>, T extends Predicate<any>>(
   keyPredicate: K,
   valuePredicate: T,
 ) => {

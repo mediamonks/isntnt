@@ -37,14 +37,7 @@ describe('or', () => {
     expect(is4TimesAnyOrNever(null)).toBe(true)
     const is5TimesAnyOrNever = or(isAny, isNever, isAny, isNever, isAny)
     expect(is5TimesAnyOrNever(null)).toBe(true)
-    const is6TimesAnyOrNever = or(
-      isAny,
-      isNever,
-      isAny,
-      isNever,
-      isAny,
-      isNever,
-    )
+    const is6TimesAnyOrNever = or(isAny, isNever, isAny, isNever, isAny, isNever)
     expect(is6TimesAnyOrNever(null)).toBe(true)
   })
 
@@ -57,14 +50,7 @@ describe('or', () => {
     expect(is4TimesNever(null)).toBe(false)
     const is5TimesNever = or(isNever, isNever, isNever, isNever, isNever)
     expect(is5TimesNever(null)).toBe(false)
-    const is6TimesNever = or(
-      isNever,
-      isNever,
-      isNever,
-      isNever,
-      isNever,
-      isNever,
-    )
+    const is6TimesNever = or(isNever, isNever, isNever, isNever, isNever, isNever)
     expect(is6TimesNever(null)).toBe(false)
   })
 })

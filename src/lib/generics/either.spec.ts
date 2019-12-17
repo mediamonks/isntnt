@@ -10,7 +10,7 @@ describe('either', () => {
     expect(isEitherAbcOrXyz).toBeInstanceOf(Function)
   })
 
-  test('eturns true for any input if no values are provided', () => {
+  test('returns true for any input if no values are provided', () => {
     const isEitherWhatever = either()
     expect(isEitherWhatever('abc')).toBe(true)
     expect(isEitherWhatever(123)).toBe(true)

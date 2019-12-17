@@ -37,14 +37,7 @@ describe('and', () => {
     expect(is4TimesAnyAndNever(null)).toBe(false)
     const is5TimesAnyAndNever = and(isAny, isNever, isAny, isNever, isAny)
     expect(is5TimesAnyAndNever(null)).toBe(false)
-    const is6TimesAnyAndNever = and(
-      isAny,
-      isNever,
-      isAny,
-      isNever,
-      isAny,
-      isNever,
-    )
+    const is6TimesAnyAndNever = and(isAny, isNever, isAny, isNever, isAny, isNever)
     expect(is6TimesAnyAndNever({})).toBe(false)
   })
 
@@ -57,14 +50,7 @@ describe('and', () => {
     expect(is4TimesNever(null)).toBe(false)
     const is5TimesNever = and(isNever, isNever, isNever, isNever, isNever)
     expect(is5TimesNever(null)).toBe(false)
-    const is6TimesNever = and(
-      isNever,
-      isNever,
-      isNever,
-      isNever,
-      isNever,
-      isNever,
-    )
+    const is6TimesNever = and(isNever, isNever, isNever, isNever, isNever, isNever)
     expect(is6TimesNever(null)).toBe(false)
   })
 })
