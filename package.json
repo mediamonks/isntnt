@@ -10,7 +10,8 @@
     "start": "yarn && yarn watch",
     "watch": "tsc -w -d --skipLibCheck",
     "build": "jest -u --silent --collectCoverage && rimraf dist && tsc --skipLibCheck",
-    "test": "jest --watchAll --coverage"
+    "test": "jest --watchAll --coverage",
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "@types/jest": "^24.0.17",
