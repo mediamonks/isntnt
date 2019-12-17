@@ -5,5 +5,4 @@
 .idea
 logs
 node_modules
-/src
 /coverage
