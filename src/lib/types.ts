@@ -1,16 +1,28 @@
 type ObjectWith<K extends PropertyKey> = { [P in K]: unknown }
 
+export type InferredPartial<T extends {}> = {
+  [P in {
+    [K in keyof T]: Extract<T[K], undefined> extends never ? K : never
+  }[keyof T]]: InferredPartial<T[P]>
+} &
+  Partial<
+    {
+      [P in {
+        [K in keyof T]: Extract<T[K], undefined> extends never ? never : K
+      }[keyof T]]: InferredPartial<T[P]>
+    }
+  >
+
 export type Predicate<T> = (value: unknown, ...rest: Array<unknown>) => value is T
+
 export type Static<T extends Predicate<any>> = T extends Predicate<infer R> ? R : never
 
-export type Constructor<T> = {
-  new (...rest: Array<any>): T
+export type Constructor<T extends object, U extends Array<any> = []> = {
+  new (...rest: U): T
 }
 
 // see https://github.com/Microsoft/TypeScript/issues/29594#issuecomment-507673155
-export type Intersect<T> = (T extends any
-? (k: T) => void
-: never) extends (k: infer I) => void
+export type Intersect<T> = (T extends any ? (k: T) => void : never) extends (k: infer I) => void
   ? I
   : never
 
