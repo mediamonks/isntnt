@@ -249,13 +249,18 @@ isNumber(value) // value is number
 ## isObject
 
 ```typescript
-isObject(value) // value is object
+isObject(value) // value is {}
 ```
 
 ## isObjectLike
 
 ```typescript
 isObjectLike(value) // value is ObjectLike
+```
+
+## isPlainObject
+```typescript
+isPlainObject({}) // value is {}
 ```
 
 ## isPositive
