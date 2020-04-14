@@ -1,5 +1,7 @@
-import { Predicate, Serializable } from '../types'
+import { Predicate, SerializableArray } from '../types'
+import { isArray } from './isArray'
 import { isSerializable } from './isSerializable'
-import { array } from '../generics/array'
 
-export const isSerializableArray: Predicate<Array<Serializable>> = array(isSerializable)
+export const isSerializableArray: Predicate<SerializableArray> = (
+  value: unknown,
+): value is SerializableArray => isArray(value) && value.every(isSerializable)
