@@ -259,6 +259,7 @@ isObjectLike(value) // value is ObjectLike
 ```
 
 ## isPlainObject
+
 ```typescript
 isPlainObject({}) // value is {}
 ```
@@ -424,7 +425,7 @@ SerializableArray // Array<Serializable>
 ## SerializableObject
 
 ```typescript
-SerializableObject // { [key: string]: Serializable }
+SerializableObject // Partial<{ [key: string]: Serializable }>
 ```
 
 ## SerializablePrimitive
