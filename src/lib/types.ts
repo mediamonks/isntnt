@@ -35,5 +35,5 @@ export type Primitive = null | undefined | boolean | number | string | symbol | 
 
 export type SerializableArray = Array<Serializable>
 export type SerializablePrimitive = null | boolean | number | string
-export type SerializableObject = { [key: string]: Serializable }
+export type SerializableObject = Partial<{ [key: string]: Serializable }>
 export type Serializable = SerializablePrimitive | SerializableObject | SerializableArray
