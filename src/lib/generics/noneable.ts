@@ -1,5 +1,3 @@
-import { Predicate } from '../types'
-import { or } from './or'
-import { isNone } from '../predicates/isNone'
+import { maybe } from './maybe'
 
-export const noneable = <T>(predicate: Predicate<T>) => or(predicate, isNone)
+export const noneable = maybe

@@ -62,6 +62,12 @@ const is42 = literal(42) // (value: unknown) => value is 42
 const isMax255 = max(255) // (value: unknown) => value is number
 ```
 
+## maybe
+
+```typescript
+const isMaybeString = maybe(isString) // (value: unknown) => value is string | null | undefined
+```
+
 ## min
 
 ```typescript
@@ -70,9 +76,7 @@ const isMin18 = min(18) // (value: unknown) => value is number
 
 ## noneable
 
-```typescript
-const isNoneableString = noneable(isString) // (value: unknown) => value is string | null | undefined
-```
+Aliases `maybe`
 
 ## nullable
 
