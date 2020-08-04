@@ -3,389 +3,462 @@ Isntnt is a collection of composable JavaScript runtime type predicates with Typ
 # Generics
 
 ## above
+`<T extends number>(value: unknown) => value is number`
 
 ```typescript
-const isAboveZero = above(0) // (value: unknown) => value is number
+const isAboveZero = above(0)
 ```
 
 ## and
+`<T extends Array<Predicate<any>>>(value: unknown) => value is Predicate<Intersect<Static<T[number]>>>`
 
 ```typescript
-const isBetween0And21 = and(above(0), below(21)) // (value: unknown) => value is number
+const isBetween0And21 = and(above(0), below(21))
+
+const isUser = shape({ name: isString })
+const hasEmailAddress = at('email' isString)
+
+const isUserWithEmail = and(isUser, hasEmailAddress) // (value: unknown) => { name: string } & { email: string }
 ```
 
 ## array
+`<T>(value: unknown) => value is Array<T>`
 
 ```typescript
 const isAnyArray = array(isAny) // (value: unknown) => value is Array<any>
 ```
 
 ## at
+`<T extends PropertyKey, U>(value: unknown) => value is { [P in T]: U }`
 
 ```typescript
 const isAnyAtFoo = at('foo', isAny) // (value: unknown) => value is { foo: any }
 ```
 
 ## below
+`<T extends number>(value: unknown) => value is number`
 
 ```typescript
-const isBelow21 = below(21) // (value: unknown) => value is { foo: any }
+const isBelow21 = below(21)
 ```
 
 ## either
+`<T extends Array<Primitive>>(value: unknown) => value is T[number]`
 
 ```typescript
 const isFooOrBar = either('foo', 'bar') // (value: unknown) => value is 'foo' | 'bar'
 ```
 
 ## has
+`<T extends PropertyKey>(value: unknown) => value is { [P in T]: unknown }`
 
 ```typescript
 const hasFoo = has('foo') // (value: unknown) => value is { 'foo': unknown }
 ```
 
 ## instance
+`<T extends Constructor<any, any>>(value: unknown) => value is InstanceType<T>`
 
 ```typescript
 const isInstanceofString = instance(String) // (value: unknown) => value is String
 ```
 
 ## literal
+`<T extends Primitive>(value: unknown) => value is T`
 
 ```typescript
 const is42 = literal(42) // (value: unknown) => value is 42
 ```
 
 ## max
+`<T extends number>(value: unknown) => value is number`
 
 ```typescript
-const isMax255 = max(255) // (value: unknown) => value is number
+const isMax255 = max(255)
 ```
 
 ## maybe
+`<T>(value: unknown) => value is T | null | undefined`
 
 ```typescript
 const isMaybeString = maybe(isString) // (value: unknown) => value is string | null | undefined
 ```
 
 ## min
+`<T extends number>(value: unknown) => value is number`
 
 ```typescript
-const isMin18 = min(18) // (value: unknown) => value is number
+const isMin18 = min(18)
 ```
 
 ## noneable
 
-Aliases `maybe`
+Aliases [`maybe`](#maybe)
 
 ## nullable
+`<T>(value: unknown) => value is T | null`
 
 ```typescript
 const isNullableString = nullable(isString) // (value: unknown) => value is string | null
 ```
 
 ## object
+`<T>(value: unknown) => value is Record<any, T>`
 
 ```typescript
-const isEnum = object(isNumber) // (value: unknown) => value is ObjectOf<number>
+const isEnum = object(isUint) // (value: unknown) => value is Record<any, number>
 ```
 
 ## optional
+`<T>(value: unknown) => value is T | undefined`
 
 ```typescript
 const isOptionalString = optional(isString) // (value: unknown) => value is string | undefined
 ```
 
 ## or
+`<T extends Array<Predicate<any>>>(value: unknown) => value is Static<T[number]>`
 
 ```typescript
 const isStringOrNumber = or(isString, isNumber) // (value: unknown) => value is string | number
 ```
 
 ## record
+`<T extends PropertyKey, U>(value: unknown) => value is Record<T, U>`
 
 ```typescript
-const isEnum = record(isString, isNumber) // (value: unknown) => value is Record<string, number>
+const isDictionary = record(isString, isInt) // (value: unknown) => value is Record<string, number>
 ```
 
-Note: `record` is limited to `string` and `symbol` type keys.
-
 ## shape
+`<T extends Record<PropertyKey, Predicate<any>>>(value: unknown) => value is { [P in keyof T]: Static<T[P]> }`
+
+> Note: Actual signature also considers optional members (`{ name?: T }`) in its `Predicate` type
 
 ```typescript
-const isPosition = shape({ x: isNumber, y: isNumber }) // (value: unknown) => value is { x: number, y: number }
+const isCoordinate = shape({ x: isNumber, y: isNumber }) // (value: unknown) => value is { x: number, y: number }
 ```
 
 ## test
+`(value: unknown) => value is string`
 
 ```typescript
-const isSlug = test(/^[\w-]+$/) // (value: unknown) => value is string
+const isSlug = test(/^[\w-]+$/)
 ```
 
 ## tuple
+`<T extends Array<any>>(value: unknown) => value is T`
 
 ```typescript
-const isEntry = tuple(isNumber, isNumber) // (value: unknown) => value is [number, number]
+const isPoint = tuple(isNumber, isNumber) // (value: unknown) => value is [number, number]
 ```
 
 # Predicates
 
 ## isAny
+`(value: unknown) => value is any`
+
+Always returns `true`.
 
 ```typescript
-isAny(value) // value is any
+isAny(value)
 ```
 
 ## isArray
+`(value: unknown) => value is Array<unknown>`
 
 ```typescript
-isArray(value) // value is Array<unknown>
+isArray(value)
 ```
 
 ## isArrayLike
+`(value: unknown) => value is Record<number, unknown>`
 
 ```typescript
-isArrayLike(value) // value is Record<number, unknown>
+isArrayLike(value)
 ```
 
 ## isBigInt
+`(value: unknown) => value is bigint`
 
 ```typescript
-isBigInt(value) // value is bigint
+isBigInt(value)
 ```
 
 ## isBoolean
+`(value: unknown) => value is boolean`
 
 ```typescript
-isBoolean(value) // value is boolean
+isBoolean(value)
 ```
 
 ## isDate
+`(value: unknown) => value is Date`
 
 ```typescript
-isDate(value) // value is Date
+isDate(value)
 ```
 
 ## isDictionary
+`(value: unknown) => value is Record<any, string>`
 
 ```typescript
-isDictionary(value) // value is ObjectOf<string>
+isDictionary(value)
 ```
 
 ## isFalse
+`(value: unknown) => value is false`
 
 ```typescript
-isFalse(value) // value is false
+isFalse(value)
 ```
 
 ## isFunction
+`(value: unknown) => value is Function`
 
 ```typescript
-isFunction(value) // value is Function
+isFunction(value)
 ```
 
 ## isInt
+`(value: unknown) => value is number`
 
 ```typescript
-isInt(value) // value is number
+isInt(value)
 ```
 
 ## isInt8
+`(value: unknown) => value is number`
 
 ```typescript
-isInt8(value) // value is number
+isInt8(value)
 ```
 
 ## isInt16
+`(value: unknown) => value is number`
 
 ```typescript
-isInt16(value) // value is number
+isInt16(value)
 ```
 
 ## isInt32
+`(value: unknown) => value is number`
 
 ```typescript
-isInt32(value) // value is number
+isInt32(value)
 ```
 
 ## isLength
+`(value: unknown) => value is number`
 
 ```typescript
-isLength(value) // value is number
+isLength(value)
 ```
 
 ## isMap
+`(value: unknown) => value is Map<any, unknown>`
 
 ```typescript
-isMap(value) // value is Map<any, unknown>
+isMap(value)
 ```
 
 ## isNegative
+`(value: unknown) => value is number`
 
 ```typescript
-isNegative(value) // value is number
+isNegative(value)
 ```
 
 ## isNever
+`(value: unknown) => value is never`
+
+Always returns `false`;
 
 ```typescript
-isNever(value) // value is never
+isNever(value)
 ```
 
 ## isNone
+`(value: unknown) => value is null | undefined`
 
 ```typescript
-isNone(value) // value is null | undefined
+isNone(value)
 ```
 
 ## isNull
+`(value: unknown) => value is null`
 
 ```typescript
-isNull(value) // value is null
+isNull(value)
 ```
 
 ## isNumber
+`(value: unknown) => value is number`
 
 ```typescript
-isNumber(value) // value is number
+isNumber(value)
 ```
 
 ## isObject
+`(value: unknown) => value is object`
 
 ```typescript
-isObject(value) // value is {}
+isObject(value)
 ```
 
 ## isObjectLike
+`(value: unknown) => value is ObjectLike`
 
 ```typescript
-isObjectLike(value) // value is ObjectLike
+isObjectLike(value)
 ```
 
 ## isPlainObject
+`(value: unknown) => value is {}`
 
 ```typescript
-isPlainObject({}) // value is {}
+isPlainObject(value)
 ```
 
 ## isPositive
+`(value: unknown) => value is number`
 
 ```typescript
-isPositive(value) // value is number
+isPositive(value)
 ```
 
 ## isPrimitive
+`(value: unknown) => value is Primitive`
 
 ```typescript
-isPrimitive(value) // value is Primitive
+isPrimitive(value)
 ```
 
+
 ## isRegExp
+`(value: unknown) => value is RegExp`
 
 ```typescript
-isRegExp(value) // value is RegExp
+isRegExp(value)
 ```
 
 ## isSerializable
+`(value: unknown) => value is Serializable`
 
 ```typescript
-isSerializable(value) // value is Serializable
+isSerializable(value)
 ```
 
 ## isSerializableArray
+`(value: unknown) => value is Array<Serializable>`
 
 ```typescript
-isSerializableArray(value) // value is Array<Serializable>
+isSerializableArray(value)
 ```
 
 ## isSerializableNumber
+`(value: unknown) => value is number`
 
 ```typescript
-isSerializableNumber(value) // value is number
+isSerializableNumber(value)
 ```
 
 ## isSerializableObject
+`(value: unknown) => value is Record<string, Serializable>`
 
 ```typescript
-isSerializableObject(value) // value is Record<string, Serializable>
+isSerializableObject(value)
 ```
 
 ## isSerializablePrimitive
+`(value: unknown) => value is SerializablePrimitive`
 
 ```typescript
-isSerializablePrimitive(value) // value is SerializablePrimitive
+isSerializablePrimitive(value)
 ```
 
 ## isSet
+`(value: unknown) => value is Set<unknown>`
 
 ```typescript
-isSet(value) // value is Set<unknown>
+isSet(value)
 ```
 
 ## isSome
+`(value: unknown) => value is Some`
 
 ```typescript
-isSome(value) // value is Some
+isSome(value)
 ```
 
 ## isString
+`(value: unknown) => value is string`
 
 ```typescript
-isString(value) // value is string
+isString(value)
 ```
 
 ## isSymbol
+`(value: unknown) => value is symbol`
 
 ```typescript
-isSymbol(value) // value is symbol
+isSymbol(value)
 ```
 
 ## isTrue
+`(value: unknown) => value is true`
 
 ```typescript
-isTrue(value) // value is true
+isTrue(value)
 ```
 
 ## isUint
+`(value: unknown) => value is number`
 
 ```typescript
-isUint(value) // value is number
+isUint(value)
 ```
 
 ## isUint8
+`(value: unknown) => value is number`
 
 ```typescript
-isUint8(value) // value is number
+isUint8(value)
 ```
 
 ## isUint16
+`(value: unknown) => value is number`
 
 ```typescript
-isUint16(value) // value is number
+isUint16(value)
 ```
 
 ## isUint32
+`(value: unknown) => value is number`
 
 ```typescript
-isUint32(value) // value is number
+isUint32(value)
 ```
 
 ## isUndefined
+`(value: unknown) => value is undefined`
 
 ```typescript
-isUndefined(value) // value is undefined
+isUndefined(value)
 ```
 
 ## isWeakMap
+`(value: unknown) => value is WeakMap<any, unknown>`
 
 ```typescript
-isWeakMap(value) // value is WeakMap<any, unknown>
+isWeakMap(value)
 ```
 
 ## isWithLength
+`(value: unknown) => value is { length: number }`
 
 ```typescript
-isWithLength(value) // value is { length: number }
+isWithLength(value)
 ```
 
 # Types
