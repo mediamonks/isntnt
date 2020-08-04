@@ -3,14 +3,14 @@ Isntnt is a collection of composable JavaScript runtime type predicates with Typ
 # Generics
 
 ## above
-`<T extends number>(value: unknown) => value is number`
+`(floor: number) => (value: unknown) => value is number`
 
 ```typescript
 const isAboveZero = above(0)
 ```
 
 ## and
-`<T extends Array<Predicate<any>>>(value: unknown) => value is Predicate<Intersect<Static<T[number]>>>`
+`<T extends Array<Predicate<any>>>(...predicates: T) => (value: unknown) => value is Predicate<Intersect<Static<T[number]>>>`
 
 ```typescript
 const isBetween0And21 = and(above(0), below(21))
@@ -22,70 +22,70 @@ const isUserWithEmail = and(isUser, hasEmailAddress) // (value: unknown) => { na
 ```
 
 ## array
-`<T>(value: unknown) => value is Array<T>`
+`<T>(predicate: Predicate<T>) => (value: unknown) => value is Array<T>`
 
 ```typescript
 const isAnyArray = array(isAny) // (value: unknown) => value is Array<any>
 ```
 
 ## at
-`<T extends PropertyKey, U>(value: unknown) => value is { [P in T]: U }`
+`<T extends PropertyKey, U>(key: T, predicate: Predicate<U>) => (value: unknown) => value is { [P in T]: U }`
 
 ```typescript
 const isAnyAtFoo = at('foo', isAny) // (value: unknown) => value is { foo: any }
 ```
 
 ## below
-`<T extends number>(value: unknown) => value is number`
+`(max: number) => (value: unknown) => value is number`
 
 ```typescript
 const isBelow21 = below(21)
 ```
 
 ## either
-`<T extends Array<Primitive>>(value: unknown) => value is T[number]`
+`<T extends Array<Primitive>>(...literalValues: T) => (value: unknown) => value is T[number]`
 
 ```typescript
 const isFooOrBar = either('foo', 'bar') // (value: unknown) => value is 'foo' | 'bar'
 ```
 
 ## has
-`<T extends PropertyKey>(value: unknown) => value is { [P in T]: unknown }`
+`<T extends PropertyKey>(key: T) => (value: unknown) => value is { [P in T]: unknown }`
 
 ```typescript
 const hasFoo = has('foo') // (value: unknown) => value is { 'foo': unknown }
 ```
 
 ## instance
-`<T extends Constructor<any, any>>(value: unknown) => value is InstanceType<T>`
+`<T extends Constructor<any, any>>(constructor: T) => (value: unknown) => value is InstanceType<T>`
 
 ```typescript
 const isInstanceofString = instance(String) // (value: unknown) => value is String
 ```
 
 ## literal
-`<T extends Primitive>(value: unknown) => value is T`
+`<T extends Primitive>(literalValue: T) => (value: unknown) => value is T`
 
 ```typescript
 const is42 = literal(42) // (value: unknown) => value is 42
 ```
 
 ## max
-`<T extends number>(value: unknown) => value is number`
+`<T extends number>(max: number) => (value: unknown) => value is number`
 
 ```typescript
 const isMax255 = max(255)
 ```
 
 ## maybe
-`<T>(value: unknown) => value is T | null | undefined`
+`<T>(predicate: Predicate<T>) => (value: unknown) => value is T | null | undefined`
 
 ```typescript
 const isMaybeString = maybe(isString) // (value: unknown) => value is string | null | undefined
 ```
 
 ## min
-`<T extends number>(value: unknown) => value is number`
+`(min: number) => (value: unknown) => value is number`
 
 ```typescript
 const isMin18 = min(18)
@@ -96,42 +96,42 @@ const isMin18 = min(18)
 Aliases [`maybe`](#maybe)
 
 ## nullable
-`<T>(value: unknown) => value is T | null`
+`<T>(predicate: Predicate<T>) => (value: unknown) => value is T | null`
 
 ```typescript
 const isNullableString = nullable(isString) // (value: unknown) => value is string | null
 ```
 
 ## object
-`<T>(value: unknown) => value is Record<any, T>`
+`<T>(predicate: Predicate<T>) => (value: unknown) => value is Record<any, T>`
 
 ```typescript
 const isEnum = object(isUint) // (value: unknown) => value is Record<any, number>
 ```
 
 ## optional
-`<T>(value: unknown) => value is T | undefined`
+`<T>(predicate: Predicate<T>) => (value: unknown) => value is T | undefined`
 
 ```typescript
 const isOptionalString = optional(isString) // (value: unknown) => value is string | undefined
 ```
 
 ## or
-`<T extends Array<Predicate<any>>>(value: unknown) => value is Static<T[number]>`
+`<T extends Array<Predicate<any>>>(...predicates: T) => (value: unknown) => value is Static<T[number]>`
 
 ```typescript
 const isStringOrNumber = or(isString, isNumber) // (value: unknown) => value is string | number
 ```
 
 ## record
-`<T extends PropertyKey, U>(value: unknown) => value is Record<T, U>`
+`<T extends PropertyKey, U>(keyPredicate: Predicate<T>, valuePredicate: Predicate<U>) => (value: unknown) => value is Record<T, U>`
 
 ```typescript
 const isDictionary = record(isString, isInt) // (value: unknown) => value is Record<string, number>
 ```
 
 ## shape
-`<T extends Record<PropertyKey, Predicate<any>>>(value: unknown) => value is { [P in keyof T]: Static<T[P]> }`
+`<T extends Record<PropertyKey, Predicate<any>>>(predicates: T) => (value: unknown) => value is { [P in keyof T]: Static<T[P]> }`
 
 > Note: Actual signature also considers optional members (`{ name?: T }`) in its `Predicate` type
 
@@ -140,14 +140,14 @@ const isCoordinate = shape({ x: isNumber, y: isNumber }) // (value: unknown) => 
 ```
 
 ## test
-`(value: unknown) => value is string`
+`(expression: RegExp) => (value: unknown) => value is string`
 
 ```typescript
 const isSlug = test(/^[\w-]+$/)
 ```
 
 ## tuple
-`<T extends Array<any>>(value: unknown) => value is T`
+`<T extends Array<any>>(...predicates: { [K in keyof T]: Predicate<T[K]> }) => (value: unknown) => value is T`
 
 ```typescript
 const isPoint = tuple(isNumber, isNumber) // (value: unknown) => value is [number, number]
