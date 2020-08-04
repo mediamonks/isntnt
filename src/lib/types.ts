@@ -1,5 +1,3 @@
-type ObjectWith<K extends PropertyKey> = { [P in K]: unknown }
-
 export type InferredPartial<T extends {}> = {
   [P in {
     [K in keyof T]: Extract<T[K], undefined> extends never ? K : never
@@ -32,7 +30,9 @@ export type Maybe<T> = T | None
 export type Optional<T> = T | undefined
 export type Nullable<T> = T | null
 
-export type ObjectLike = ObjectWith<PropertyKey>
+export type ObjectLike = {
+  [P in PropertyKey]: unknown
+}
 
 export type Primitive = null | undefined | boolean | number | string | symbol | bigint
 

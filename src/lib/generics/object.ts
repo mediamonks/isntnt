@@ -1,9 +1,9 @@
-import { Static, Predicate } from '../types'
+import { Predicate } from '../types'
 import { isObject } from '../predicates/isObject'
 
-export const object = <T extends Predicate<any>>(predicate: T) => (
+export const object = <T>(predicate: Predicate<T>) => (
   value: any,
-): value is Record<any, Static<T>> => {
+): value is Record<any, T> => {
   const isObjectValue = isObject(value)
   if (isObjectValue) {
     for (const key in value) {
