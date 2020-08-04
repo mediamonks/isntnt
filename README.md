@@ -396,10 +396,40 @@ isWithLength(value) // value is { length: number }
 Intersect<A | B> // A & B
 ```
 
+## Maybe
+
+```typescript
+Maybe<T> // T | null | undefined
+```
+
+```typescript
+type MaybeString = Maybe<string> // string | null | undefined
+```
+
 ## None
 
 ```typescript
 None // null | undefined
+```
+
+## Nullable
+
+```typescript
+Nullable<T> // T | null
+```
+
+```typescript
+type NullableString = Nullable<string> // string | null
+```
+
+## Optional
+
+```typescript
+Optional<T> // T | undefined
+```
+
+```typescript
+type OptionalString = Optional<string> // string | undefined
 ```
 
 ## Predicate
@@ -435,17 +465,31 @@ SerializableObject // Partial<{ [key: string]: Serializable }>
 ## SerializablePrimitive
 
 ```typescript
-SerializableObject // null | boolean | number | string
+SerializablePrimitive // null | boolean | number | string
 ```
 
 ## Some
 
 ```typescript
 Some // Function | boolean | bigint | number | string | symbol | object
+Some<T> // Exclude<T, undefined | null>
+```
+
+```typescript
+// Make sure `T` is not `null` or `undefined`
+type Option<T extends Some, E extends Error> = T | E
+
+// Remove `null` or `undefined` from a type
+type MaybeString = Optional<string> // string | null | undefined
+type SomeString = Some<MaybeString> // string
 ```
 
 ## Static
 
 ```typescript
 Static<Predicate<T>> // T
+```
+
+```typescript
+type True = Static<typeof isTrue> // true
 ```
