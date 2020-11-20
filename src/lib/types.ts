@@ -16,7 +16,7 @@ export type Predicate<T> = (value: unknown, ...rest: Array<unknown>) => value is
 export type Static<T extends Predicate<any>> = T extends Predicate<infer R> ? R : never
 
 export type Constructor<T extends object, U extends Array<any> = []> = {
-  new(...rest: U): T
+  new (...rest: U): T
 }
 
 // see https://github.com/Microsoft/TypeScript/issues/29594#issuecomment-507673155
@@ -25,7 +25,10 @@ export type Intersect<T> = (T extends any ? (k: T) => void : never) extends (k: 
   : never
 
 export type None = null | undefined
-export type Some<T = Function | boolean | bigint | number | string | symbol | object> = Exclude<T, None>
+export type Some<T = Function | boolean | bigint | number | string | symbol | object> = Exclude<
+  T,
+  None
+>
 export type Maybe<T> = T | None
 export type Optional<T> = T | undefined
 export type Nullable<T> = T | null
@@ -34,9 +37,9 @@ export type ObjectLike = {
   [P in PropertyKey]: unknown
 }
 
-export type Primitive = null | undefined | boolean | number | string | symbol | bigint
+export type Primitive = SerializablePrimitive | undefined | symbol | bigint
 
-export type SerializableArray = Array<Serializable>
+export type SerializableArray = Array<Serializable> | ReadonlyArray<Serializable>
 export type SerializablePrimitive = null | boolean | number | string
-export type SerializableObject = Partial<{ [key: string]: Serializable }>
+export type SerializableObject = { [key: string]: Serializable | undefined }
 export type Serializable = SerializablePrimitive | SerializableObject | SerializableArray
