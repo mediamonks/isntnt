@@ -1,15 +1,21 @@
 {
   "name": "isntnt",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "A collection of composable JavaScript runtime type predicates with TypeScript type guard declarations",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "dist/esm/index.js",
   "author": "Nathan Uphoff",
   "license": "WTFPL",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "yarn && yarn watch",
     "watch": "tsc -w -d --skipLibCheck",
-    "build": "jest -u --silent --collectCoverage && rimraf dist && tsc -d --skipLibCheck",
+    "build": "jest -u --silent --collectCoverage && rimraf dist && yarn build:ts && yarn build:ts-esm",
+    "build:ts": "tsc -d --skipLibCheck",
+    "build:ts-esm": "tsc -p tsconfig.esm.json -d --skipLibCheck",
     "test": "jest --watchAll --coverage",
     "prepublishOnly": "yarn build"
   },
