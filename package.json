@@ -1,6 +1,6 @@
 {
   "name": "isntnt",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "A collection of composable JavaScript runtime type predicates with TypeScript type guard declarations",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,8 @@
   "author": "Nathan Uphoff",
   "license": "WTFPL",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "start": "yarn && yarn watch",
