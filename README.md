@@ -16,7 +16,7 @@ const isAboveZero = above(0)
 const isBetween0And21 = and(above(0), below(21))
 
 const isUser = shape({ name: isString })
-const hasEmailAddress = at('email' isString)
+const hasEmailAddress = at('email', isString)
 
 const isUserWithEmail = and(isUser, hasEmailAddress) // (value: unknown) => { name: string } & { email: string }
 ```
