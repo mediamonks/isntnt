@@ -1,15 +1,15 @@
 import { and } from '../generics/and'
 import { at } from '../generics/at'
-import { PlainObject } from '../types'
+import { PlainObject, Predicate } from '../types'
 import { isObject } from './isObject'
 
-export const hasObjectConstructor = at(
+const hasObjectConstructor: Predicate<{ constructor: ObjectConstructor }> = at(
   'constructor',
-  (value: unknown): value is Object => value === Object,
+  (value: any): value is any => value === Object,
 )
 
 export const isPlainObject = and(
   isObject,
-  (value: unknown): value is PlainObject =>
+  (value: unknown): value is any =>
     hasObjectConstructor(Object.getPrototypeOf(value)) && String(value) === '[object Object]',
-) as <T>(value: T) => value is Extract<T, PlainObject>
+) as Predicate<PlainObject>

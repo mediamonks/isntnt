@@ -1,4 +1,4 @@
 import { Predicate } from '../types'
 
-export const isPositive: Predicate<number> = (value): value is number =>
-  typeof value === 'number' && (value === 0 ? Infinity / value : value) > 0
+export const isPositive = ((value: unknown) =>
+  typeof value === 'number' && (value === 0 ? Infinity / value : value) > 0) as Predicate<number>

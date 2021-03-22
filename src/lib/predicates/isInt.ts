@@ -1,4 +1,4 @@
-import { StaticPredicate } from '../types'
+import { Predicate } from '../types'
 
-export const isInt: StaticPredicate<number> = (value: unknown): value is number =>
-  typeof value === 'number' && value === Math.floor(value)
+export const isInt: Predicate<number> = ((value: unknown) =>
+  typeof value === 'number' && value === Math.floor(value)) as Predicate<number>
