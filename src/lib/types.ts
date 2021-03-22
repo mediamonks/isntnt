@@ -11,11 +11,11 @@ export type InferredPartial<T extends {}> = {
     }
   >
 
-export type Predicate<T> = (value: unknown, ...rest: Array<unknown>) => value is T
+export type Predicate<T> = <U>(value: U) => value is Extract<U, T>
 
 export type Static<T extends Predicate<any>> = T extends Predicate<infer R> ? R : never
 
-export type Constructor<T extends object, U extends Array<any> = []> = {
+export type Constructor<T extends object, U extends ReadonlyArray<any> = []> = {
   new (...rest: U): T
 }
 
@@ -24,14 +24,20 @@ export type Intersect<T> = (T extends any ? (k: T) => void : never) extends (k: 
   ? I
   : never
 
+export type Unknown = Some | None
 export type None = null | undefined
 export type Some<T = Function | boolean | bigint | number | string | symbol | object> = Exclude<
   T,
   None
 >
+
 export type Maybe<T> = T | None
 export type Optional<T> = T | undefined
 export type Nullable<T> = T | null
+
+export type PlainObject = Record<string | symbol, unknown>
+
+export type ArrayLike = { length: number }
 
 export type ObjectLike = {
   [P in PropertyKey]: unknown

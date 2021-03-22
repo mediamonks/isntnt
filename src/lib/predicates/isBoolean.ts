@@ -1,4 +1,3 @@
 import { Predicate } from '../types'
 
-export const isBoolean: Predicate<boolean> = (value: unknown): value is boolean =>
-  typeof value === 'boolean'
+export const isBoolean = ((value: any) => typeof value === 'boolean') as Predicate<boolean>

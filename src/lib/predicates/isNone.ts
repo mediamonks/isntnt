@@ -1,5 +1,4 @@
-import { Predicate, None } from '../types'
+import { None } from '../types'
 import { isSome } from './isSome'
 
-export const isNone: Predicate<None> = (value: unknown): value is None =>
-  !isSome(value)
+export const isNone = <T>(value: T): value is Extract<T, None> => !isSome(value)

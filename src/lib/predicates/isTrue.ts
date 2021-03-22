@@ -1,4 +1,3 @@
-import { Predicate } from '../types'
 import { literal } from '../generics/literal'
 
-export const isTrue: Predicate<true> = literal(true)
+export const isTrue = literal(true)

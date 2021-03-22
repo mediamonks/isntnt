@@ -1,7 +1,7 @@
 import { Predicate, Intersect, Static } from '../types'
 import { isAny } from '../predicates/isAny'
 
-export const and = <T extends Array<Predicate<any>>>(
+export const and = <T extends ReadonlyArray<Predicate<any>>>(
   ...predicates: T
 ): Predicate<Intersect<Static<T[number]>>> => {
   const length = predicates.length

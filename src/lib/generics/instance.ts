@@ -1,6 +1,8 @@
-import { Constructor } from '../types'
+import { Constructor, Predicate } from '../types'
 
-export const instance = <T extends Constructor<any, any>>(constructor: T) => {
+export const instance = <T extends Constructor<any, any>>(
+  constructor: T,
+): Predicate<InstanceType<T>> => {
   ;({} instanceof constructor)
-  return (value: unknown): value is InstanceType<T> => value instanceof constructor
+  return ((value) => value instanceof constructor) as Predicate<InstanceType<T>>
 }

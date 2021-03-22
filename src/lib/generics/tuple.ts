@@ -1,17 +1,28 @@
-import { Predicate } from '../types'
+import { Predicate, Static } from '../types'
 import { isArray } from '../predicates/isArray'
+import { isString } from '../predicates/isString'
+import { isTrue } from '../predicates/isTrue'
+import { optional } from './optional'
 
-export const tuple = <T extends Array<any>>(...predicates: { [K in keyof T]: Predicate<T[K]> }) => {
-  const length = predicates.length
-  return (value: unknown): value is { [K in keyof T]: T[K] } => {
-    const isTupleOfLength = isArray(value) && value.length === length
-    if (isTupleOfLength) {
+type BaseTuple = ReadonlyArray<any>
+
+export const tuple = <T extends BaseTuple>(
+  ...predicates: { [K in keyof T]: Predicate<T[K]> }
+): Predicate<Readonly<{ [K in keyof T]: T[K] }> | { [K in keyof T]: T[K] }> =>
+  ((value: any) => {
+    const isArrayOfMaxLength = isArray(value) && value.length <= predicates.length
+    if (isArrayOfMaxLength) {
       for (let i = 0; i < length; ++i) {
         if (!predicates[i]((value as any)[i])) {
           return false
         }
       }
     }
-    return isTupleOfLength
-  }
-}
+    return isArrayOfMaxLength
+  }) as any
+
+const isX = tuple(isString, optional(isTrue))
+
+const oi = ['a', undefined] as unknown
+
+const y = [oi].filter(isX)

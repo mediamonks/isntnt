@@ -1,3 +1,3 @@
-import { Predicate } from '../../index'
+import { Predicate } from '../types'
 
-export const isArray: Predicate<Array<any>> = Array.isArray
+export const isArray = Array.isArray as Predicate<Array<any> | ReadonlyArray<any>>

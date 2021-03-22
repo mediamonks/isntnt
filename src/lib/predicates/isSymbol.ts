@@ -1,4 +1,1 @@
-import { Predicate } from '../types'
-
-export const isSymbol: Predicate<symbol> = (value: unknown): value is symbol =>
-  typeof value === 'symbol'
+export const isSymbol = <T>(value: T): value is Extract<T, symbol> => typeof value === 'symbol'

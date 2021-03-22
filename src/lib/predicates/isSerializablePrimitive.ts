@@ -4,7 +4,7 @@ import { isNull } from './isNull'
 import { isSerializableNumber } from './isSerializableNumber'
 import { isString } from './isString'
 
-export const isSerializablePrimitive: Predicate<SerializablePrimitive> = (
-  value: unknown,
-): value is SerializablePrimitive =>
+export const isSerializablePrimitive: Predicate<SerializablePrimitive> = <T>(
+  value: T,
+): value is Extract<T, SerializablePrimitive> =>
   isNull(value) || isString(value) || isSerializableNumber(value) || isBoolean(value)

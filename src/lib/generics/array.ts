@@ -1,6 +1,7 @@
-import { Predicate, Static } from '../types'
+import { Predicate } from '../types'
 import { isArray } from '../predicates/isArray'
 
-export const array = <T extends Predicate<any>>(predicate: T) => (
-  value: any,
-): value is Array<Static<T>> => isArray(value) && value.every(predicate)
+export const array = <T>(predicate: Predicate<T>) =>
+  ((value: any) => isArray(value) && value.every(predicate)) as Predicate<
+    Array<T> | ReadonlyArray<T>
+  >

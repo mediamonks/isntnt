@@ -18,4 +18,3 @@ export const record = <K extends PropertyKey, T>(
   }
   return isObjectValue
 }
-
