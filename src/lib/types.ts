@@ -1,16 +1,3 @@
-export type InferredPartial<T extends {}> = {
-  [P in {
-    [K in keyof T]: Extract<T[K], undefined> extends never ? K : never
-  }[keyof T]]: InferredPartial<T[P]>
-} &
-  Partial<
-    {
-      [P in {
-        [K in keyof T]: Extract<T[K], undefined> extends never ? never : K
-      }[keyof T]]: InferredPartial<T[P]>
-    }
-  >
-
 export type Predicate<T> = <U>(value: U) => value is Extract<U, T>
 
 export type Static<T extends Predicate<any>> = T extends Predicate<infer R> ? R : never
@@ -39,9 +26,7 @@ export type PlainObject = Record<string | symbol, unknown>
 
 export type ArrayLike = { length: number }
 
-export type ObjectLike = {
-  [P in PropertyKey]: unknown
-}
+export type ObjectLike = Exclude<Some, boolean>
 
 export type Primitive = SerializablePrimitive | undefined | symbol | bigint
 
