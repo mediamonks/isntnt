@@ -1,5 +1,11 @@
 Isntnt is a collection of composable JavaScript runtime type predicates with TypeScript type guard declarations. Supports generics including union and intersection types.
 
+# Features
+
+- [Predicates](#predicates)
+- [Predicate Factories](#predicate-factories)
+- [Types](#types)
+
 # Predicates
 
 A predicate is a function that checks whether a value matches a certain type, it always returns a boolean. Well known examples of JavaScript predicates are `Array.isArray`, `isNan`, and `Number.isNaN`. With `isntnt` you add a whole slew of additional predicates to your toolbox, they are listed below.
@@ -302,7 +308,7 @@ isTrue(value)
 
 ## isUint
 
-Returns `true` when you pass a positive [integer](#isInteger).
+Returns `true` when you pass a positive [integer](#isInt).
 
 ```typescript
 isUint(value)
