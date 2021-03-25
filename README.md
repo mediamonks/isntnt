@@ -15,7 +15,8 @@ A predicate is a function that checks whether a value matches a certain type, it
 Returns `true` when you pass an object with a length property that is a valid [`length`](#isLength).
 
 ```typescript
-isWithLength(value)
+hasLength(new ArrayBuffer()) // true
+hasLength({}) // false
 ```
 
 ## isAny
@@ -23,7 +24,9 @@ isWithLength(value)
 Always returns `true`.
 
 ```typescript
-isAny(value)
+isAny(null) // true
+isAny(12) // true
+// always true
 ```
 
 ## isArray
@@ -31,7 +34,8 @@ isAny(value)
 Returns `true` when you pass an array.
 
 ```typescript
-isArray(value)
+isArray([]) // true
+isArray('foo') // false
 ```
 
 ## isArrayLike
@@ -39,7 +43,8 @@ isArray(value)
 Returns `true` when you pass a object that is not a function with a length property that is a valid [`length`](#isLength).
 
 ```typescript
-isArrayLike(value)
+isArrayLike({ length: 12 }) // true
+isArrayLike(new Date()) // false
 ```
 
 ## isBigInt
@@ -47,7 +52,8 @@ isArrayLike(value)
 Returns `true` when you pass a bigint.
 
 ```typescript
-isBigInt(value)
+isBigInt(116n) // true
+isBigInt(12) // false
 ```
 
 ## isBoolean
@@ -55,7 +61,8 @@ isBigInt(value)
 Returns `true` when you pass a boolean.
 
 ```typescript
-isBoolean(value)
+isBoolean(true) // true
+isBoolean(null) // false
 ```
 
 ## isDate
@@ -63,7 +70,8 @@ isBoolean(value)
 Returns `true` when you pass a Date object.
 
 ```typescript
-isDate(value)
+isDate(new Date()) // true
+isDate(Date.now()) // false
 ```
 
 ## isDictionary
@@ -71,7 +79,8 @@ isDate(value)
 Returns `true` when you pass an object of which each property name, and each property value are a string.
 
 ```typescript
-isDictionary(value)
+isDictionary({ a: 'foo' })
+isDictionary({ b: 12 })
 ```
 
 ## isFalse
@@ -79,7 +88,8 @@ isDictionary(value)
 Returns `true` when you pass `false`.
 
 ```typescript
-isFalse(value)
+isFalse(false) // true
+isFalse(true) // false
 ```
 
 ## isFunction
@@ -87,7 +97,8 @@ isFalse(value)
 Returns `true` when you pass a function.
 
 ```typescript
-isFunction(value)
+isFunction(isFunction) // true
+isFunction({}) // true
 ```
 
 ## isInt
@@ -95,7 +106,8 @@ isFunction(value)
 Returns `true` when you pass an integer (a whole number).
 
 ```typescript
-isInt(value)
+isInt(1) // true
+isInt(1.5) // false
 ```
 
 ## isInt8
@@ -103,7 +115,8 @@ isInt(value)
 Returns `true` when you pass an [integer](#isInt) ranging from -128 to 127.
 
 ```typescript
-isInt8(value)
+isInt8(127) // true
+isInt8(128) // false
 ```
 
 ## isInt16
@@ -111,7 +124,8 @@ isInt8(value)
 Returns `true` when you pass an [integer](#isInt) ranging from -32,768 to 32,767.
 
 ```typescript
-isInt16(value)
+isInt16(12) // true
+isInt16(-50_000) // false
 ```
 
 ## isInt32
@@ -119,23 +133,21 @@ isInt16(value)
 Returns `true` when you pass an [integer](#isInt) ranging from -2,147,483,648 to 2,147,483,647.
 
 ```typescript
-isInt32(value)
+isInt32(12) // true
+isInt32(Number.MAX_SAFE_INTEGER) // false
 ```
 
 ## isLength
 
 Alias to [`isUint32`](#isUint32).
 
-```typescript
-isLength(value)
-```
-
 ## isMap
 
 Returns `true` when you pas a Map object.
 
 ```typescript
-isMap(value)
+isMap(new Map()) // true
+isMap({}) // false
 ```
 
 ## isNegative
@@ -143,7 +155,8 @@ isMap(value)
 Returns `true` when you pas a negative number (including -0).
 
 ```typescript
-isNegative(value)
+isNegative(-1) // true
+isNegative(1) // false
 ```
 
 ## isNever
@@ -151,7 +164,9 @@ isNegative(value)
 Always returns `false`.
 
 ```typescript
-isNever(value)
+isNever(null) // false
+isNever(true) // false
+// always returns false
 ```
 
 ## isNone
@@ -159,7 +174,8 @@ isNever(value)
 Returns `true` when you pass `null` or `undefined`.
 
 ```typescript
-isNone(value)
+isNone(null) // true
+isNone(128) // false
 ```
 
 ## isNull
@@ -167,7 +183,8 @@ isNone(value)
 Returns `true` when you pass `null`.
 
 ```typescript
-isNull(value)
+isNull(null) // true
+isNull(undefined) // false
 ```
 
 ## isNumber
@@ -175,7 +192,8 @@ isNull(value)
 Returns `true` when you pass a number that is not `NaN`.
 
 ```typescript
-isNumber(value)
+isNumber(12) // true
+isNumber(NaN) // false
 ```
 
 ## isObject
@@ -183,7 +201,8 @@ isNumber(value)
 Returns `true` when you pass an object that is not `null`.
 
 ```typescript
-isObject(value)
+isObject({}) // true
+isObject(null) // false
 ```
 
 ## isObjectLike
@@ -191,7 +210,8 @@ isObject(value)
 Returns `true` when you pass an value that is not a boolean, `null`, or `undefined`.
 
 ```typescript
-isObjectLike(value)
+isObjectLike([]) // true
+isObjectLike(true) // false
 ```
 
 ## isPlainObject
@@ -199,7 +219,8 @@ isObjectLike(value)
 Returns `true` when you pass an object that was constructed by `Object`.
 
 ```typescript
-isPlainObject(value)
+isPlainObject({}) // true
+isPlainObject(new Date()) // false
 ```
 
 ## isPositive
@@ -207,7 +228,8 @@ isPlainObject(value)
 Returns `true` when you pass a positive number.
 
 ```typescript
-isPositive(value)
+isPositive(1) // true
+isPositive(-1) // false
 ```
 
 ## isPrimitive
@@ -215,7 +237,8 @@ isPositive(value)
 Returns `true` when you pass `null`, `undefined`, a boolean, bigint, number, symbol, or string.
 
 ```typescript
-isPrimitive(value)
+isPrimitive(1) // true
+isPrimitive([]) // false
 ```
 
 ## isRegExp
@@ -223,7 +246,8 @@ isPrimitive(value)
 Returns `true` when you pass a RegExp object.
 
 ```typescript
-isRegExp(value)
+isRegExp(/foo/) // true
+isRegExp([]) // false
 ```
 
 ## isSerializable
@@ -231,7 +255,8 @@ isRegExp(value)
 Returns `true` when you pass a [serializable primitive](#isSerializablePrimitive), a [serializable array](#isSerializableArray), or [serializable object](#isSerializableObject).
 
 ```typescript
-isSerializable(value)
+isSerializable(12) // true
+isSerializable(console.log) // false
 ```
 
 ## isSerializableArray
@@ -239,7 +264,8 @@ isSerializable(value)
 Returns `true` when you pass an array where every element is [serializable](#isSerializable).
 
 ```typescript
-isSerializableArray(value)
+isSerializableArray(['foo', 1]) // true
+isSerializableArray([new Date()]) // false
 ```
 
 ## isSerializableNumber
@@ -247,7 +273,8 @@ isSerializableArray(value)
 Returns `true` when you pass a number that is not `NaN`, `Infinity`, or `-Infinity`.
 
 ```typescript
-isSerializableNumber(value)
+isSerializableNumber(1) // true
+isSerializableNumber(Infinity) // false
 ```
 
 ## isSerializableObject
@@ -255,7 +282,8 @@ isSerializableNumber(value)
 Returns `true` when you pass an object where every property is [serializable](#isSerializable).
 
 ```typescript
-isSerializableObject(value)
+isSerializableObject({ foo: 1 }) // true
+isSerializableObject({ bar: Infinity }) // false
 ```
 
 ## isSerializablePrimitive
@@ -263,7 +291,8 @@ isSerializableObject(value)
 Returns `true` when you pass `null`, a [serializable number](#isSerializableNumber), a boolean, bigint, symbol, or string.
 
 ```typescript
-isSerializablePrimitive(value)
+isSerializablePrimitive(null) // true
+isSerializablePrimitive(NaN) // false
 ```
 
 ## isSet
@@ -271,7 +300,8 @@ isSerializablePrimitive(value)
 Returns `true` when you pas a Set object.
 
 ```typescript
-isSet(value)
+isSet(new Set()) // true
+isSet([]) // false
 ```
 
 ## isSome
@@ -279,7 +309,8 @@ isSet(value)
 Returns `true` when you pas a value other than `null` or `undefined`.
 
 ```typescript
-isSome(value)
+isSome('foo') // true
+isSome(null) // false
 ```
 
 ## isString
@@ -287,7 +318,8 @@ isSome(value)
 Returns `true` when you pas a string.
 
 ```typescript
-isString(value)
+isString('bar') // true
+isString(48) // false
 ```
 
 ## isSymbol
@@ -295,7 +327,8 @@ isString(value)
 Returns `true` when you pas a symbol.
 
 ```typescript
-isSymbol(value)
+isSymbol(Symbol()) // true
+isSymbol('baz') // false
 ```
 
 ## isTrue
@@ -303,7 +336,8 @@ isSymbol(value)
 Returns `true` when you pas `true`.
 
 ```typescript
-isTrue(value)
+isTrue(true) // true
+isTrue(false) // false
 ```
 
 ## isUint
@@ -311,7 +345,8 @@ isTrue(value)
 Returns `true` when you pass a positive [integer](#isInt).
 
 ```typescript
-isUint(value)
+isUint(112) // true
+isUint(-16) // false
 ```
 
 ## isUint8
@@ -319,7 +354,8 @@ isUint(value)
 Returns `true` when you pass an [unsigned integer](#isUint) ranging from 0 to 255.
 
 ```typescript
-isUint8(value)
+isUint8(255) // true
+isUint8(1.2) // false
 ```
 
 ## isUint16
@@ -327,7 +363,8 @@ isUint8(value)
 Returns `true` when you pass an [unsigned integer](#isUint) ranging from 0 to 65,535.
 
 ```typescript
-isUint16(value)
+isUint16(2048) // true
+isUint16(-12) // false
 ```
 
 ## isUint32
@@ -335,7 +372,8 @@ isUint16(value)
 Returns `true` when you pass an [unsigned integer](#isUint) ranging from 0 to 4,294,967,295.
 
 ```typescript
-isUint32(value)
+isUint32(256) // true
+isUint(Number.MAX_SAFE_INTEGER) // false
 ```
 
 ## isUndefined
@@ -343,7 +381,8 @@ isUint32(value)
 Returns `true` when you pass `undefined`.
 
 ```typescript
-isUndefined(value)
+isUndefined(undefined) // true
+isUndefined(null) // false
 ```
 
 ## isWeakMap
@@ -351,7 +390,8 @@ isUndefined(value)
 Returns `true` when you pass a `WeakMap` object.
 
 ```typescript
-isWeakMap(value)
+isWeakMap(new WeakMap()) // true
+isWeakMap(new Map()) // false
 ```
 
 # Predicate factories
@@ -642,17 +682,7 @@ The `isLatLong` predicate above returns `true` when you an pass an array with a 
 ## Intersect
 
 ```typescript
-type User = Intersect<{ name: string } | { email: string }>
-```
-
-equals
-
-```typescript
-type User = {
-  name: string
-} & {
-  email: string
-}
+type User = Intersect<{ name: string } | { email: string }> // { name: string } & { email: string }
 ```
 
 ## Maybe
@@ -660,13 +690,7 @@ type User = {
 Unions a type with `null` and `undefined`.
 
 ```typescript
-type MaybeString = Maybe<string>
-```
-
-equals
-
-```typescript
-type MaybeString = string | null | undefined
+type MaybeString = Maybe<string> // string | null | undefined
 ```
 
 ## None
@@ -674,13 +698,7 @@ type MaybeString = string | null | undefined
 Union of `null` and `undefined`.
 
 ```typescript
-type NoneType = None
-```
-
-equals
-
-```typescript
-type NoneType = null | undefined
+type X = None // null | undefined
 ```
 
 ## Nullable
@@ -688,13 +706,7 @@ type NoneType = null | undefined
 Unions a type with `null`.
 
 ```typescript
-type NullableString = Nullable<string>
-```
-
-equals
-
-```typescript
-type NullableString = string | null
+type NullableString = Nullable<string> // string | null
 ```
 
 ## Optional
@@ -702,13 +714,7 @@ type NullableString = string | null
 Unions a type with `undefined`.
 
 ```typescript
-type OptionalString = Optional<string>
-```
-
-equals
-
-```typescript
-type OptionalString = string | undefined
+type OptionalString = Optional<string> // string | undefined
 ```
 
 ## Predicate
@@ -716,13 +722,7 @@ type OptionalString = string | undefined
 Describes a predicate function signature
 
 ```typescript
-type IsString = Predicate<string>
-```
-
-equals
-
-```typescript
-type IsString = <T>(value: T) => value is Extract<T, string>
+type IsString = Predicate<string> // <U>(value: U): value is Extract<U, string>
 ```
 
 ## Primitive
@@ -730,77 +730,40 @@ type IsString = <T>(value: T) => value is Extract<T, string>
 Union of all primitive types.
 
 ```typescript
-type PrimitiveType = Primitive
-```
-
-equals
-
-```typescript
-type PrimitiveType = null | undefined | boolean | number | string | symbol | bigint
+type X = Primitive // null | undefined | boolean | number | string | symbol | bigint
 ```
 
 ## Serializable
 
 ```typescript
-type SerializableType = Serializable
-```
-
-equals
-
-```typescript
-type SerializableType = SerializableArray | SerializableObject | SerializableObject
+type X = Serializable // SerializableArray | SerializableObject | SerializableObject
 ```
 
 ## SerializableArray
 
 ```typescript
-type SerializableArrayType = SerializableArray
-```
-
-equals
-
-```typescript
-type SerializableArrayType = Array<Serializable> | ReadonlyArray<Serializable>
+type X = SerializableArray // Array<Serializable> | ReadonlyArray<Serializable>
 ```
 
 ## SerializableObject
 
 ```typescript
-type SerializableObjectType = SerializableObject
-```
-
-equals
-
-```typescript
-type SerializableObjectType = { [key: string]: Serializable | undefined }
+type X = SerializableObject // { [key: string]: Serializable | undefined }
 ```
 
 ## SerializablePrimitive
 
 ```typescript
-type SerializablePrimitiveType = SerializablePrimitive
-```
-
-equals
-
-```typescript
-type SerializablePrimitiveType = null | boolean | number | string
+type X = SerializablePrimitive // null | boolean | number | string
 ```
 
 ## Some
 
-Excludes `null` and `undefined` from type.
+Excludes `null` and `undefined` from a type, type parameter is optional.
 
 ```typescript
-type SomeType = Some
-type SomeString = Some<string | null>
-```
-
-equals
-
-```typescript
-type SomeType = Function | boolean | bigint | number | string | symbol | object
-type SomeString = string
+type X = Some // Function | boolean | bigint | number | string | symbol | object
+type Y = Some<string | null> // string
 ```
 
 ## Static
@@ -808,11 +771,5 @@ type SomeString = string
 Extracts type parameter from Predicate type. This is useful to extract TypeScript types from (complex) predicates.
 
 ```typescript
-type PredicateType = Static<Predicate<string>>>
-```
-
-equals
-
-```typescript
-type PredicateType = string
+type X = Static<Predicate<string>>> // string
 ```

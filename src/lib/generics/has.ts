@@ -1,6 +1,6 @@
 import { and } from './and'
 import { isObjectLike } from '../predicates/isObjectLike'
-import { Predicate, Static } from '../types'
+import { Predicate } from '../types'
 
 export const has = <K extends PropertyKey>(key: K) =>
   and(isObjectLike, (value: any): value is any =>
