@@ -2,7 +2,7 @@ export type Predicate<T> = <U>(value: U) => value is Extract<U, T>
 
 export type Static<T extends Predicate<any>> = T extends Predicate<infer R> ? R : never
 
-export type Constructor<T extends object, U extends ReadonlyArray<any> = []> = {
+export interface Constructor<T extends object = any, U extends ReadonlyArray<any> = []> {
   new (...rest: U): T
 }
 
@@ -22,6 +22,8 @@ export type Maybe<T> = T | None
 export type Optional<T> = T | undefined
 export type Nullable<T> = T | null
 
+export type Dictionary = Record<any, string>
+
 export type PlainObject = Record<string | symbol, unknown>
 
 export type ArrayLike = { length: number }
@@ -35,8 +37,11 @@ export type SerializablePrimitive = null | boolean | number | string
 export type SerializableObject = { [key: string]: Serializable | undefined }
 export type Serializable = SerializablePrimitive | SerializableObject | SerializableArray
 
-export type EmptyObject = Record<any, never>
+export type EmptyMap = Map<any, never>
+export type EmptySet = Set<never>
 export type EmptyArray = Array<never> | ReadonlyArray<never>
-export type EmptyPrimitive = '' | None
+export type EmptyObject = Record<any, never>
+export type EmptyPrimitive = EmptyString | None
+export type EmptyString = ''
 
-export type Empty = EmptyPrimitive | EmptyArray | EmptyObject
+export type Empty = EmptyPrimitive | EmptyArray | EmptyObject | EmptyMap | EmptySet

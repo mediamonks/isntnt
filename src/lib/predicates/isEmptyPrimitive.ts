@@ -1,7 +1,6 @@
+import { or } from '../generics/or'
 import { EmptyPrimitive, Predicate } from '../types'
+import { isEmptyString } from './isEmptyString'
 import { isNone } from './isNone'
-import { isString } from './isString'
 
-export const isEmptyPrimitive: Predicate<EmptyPrimitive> = <U>(
-  value: U,
-): value is Extract<U, EmptyPrimitive> => (isString(value) ? value.length === 0 : isNone(value))
+export const isEmptyPrimitive: Predicate<EmptyPrimitive> = or(isNone, isEmptyString)

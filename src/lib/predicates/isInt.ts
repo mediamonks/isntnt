@@ -1,4 +1,4 @@
 import { Predicate } from '../types'
 
-export const isInt: Predicate<number> = ((value: unknown) =>
-  typeof value === 'number' && value === Math.floor(value)) as Predicate<number>
+export const isInt: Predicate<number> = <T>(value: T): value is Extract<T, number> =>
+  typeof value === 'number' && value === Math.floor(value)

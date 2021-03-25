@@ -1,3 +1,4 @@
 import { Predicate } from '../types'
 
-export const isString = ((value) => typeof value === 'string') as Predicate<string>
+export const isString: Predicate<string> = <T>(value: T): value is Extract<T, string> =>
+  typeof value === 'string'

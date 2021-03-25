@@ -10,8 +10,8 @@ describe('isPlainObject', () => {
     expect(isPlainObject({ a: 42, b: 'abc', c: true })).toBe(true)
   })
 
-  test('returns false for an object without a prototype', () => {
-    expect(isPlainObject(Object.create(null))).toBe(false)
+  test('returns true for an object without a prototype', () => {
+    expect(isPlainObject(Object.create(null))).toBe(true)
   })
 
   test('returns false for an object that is not a plain object', () => {

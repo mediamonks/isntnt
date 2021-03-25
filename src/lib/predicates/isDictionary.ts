@@ -1,6 +1,5 @@
 import { object } from '../generics/object'
+import { Dictionary, Predicate } from '../types'
 import { isString } from './isString'
 
-export type Dictionary = Record<any, string>
-
-export const isDictionary = object(isString) as <T>(value: T) => value is Extract<T, Dictionary>
+export const isDictionary: Predicate<Dictionary> = object(isString)

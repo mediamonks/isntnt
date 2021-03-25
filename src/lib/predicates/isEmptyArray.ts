@@ -1,5 +1,5 @@
+import { array } from '../generics/array'
 import { EmptyArray, Predicate } from '../types'
-import { isArray } from './isArray'
+import { isNever } from './isNever'
 
-export const isEmptyArray: Predicate<EmptyArray> = <U>(value: U): value is Extract<U, EmptyArray> =>
-  isArray(value) && value.length === 0
+export const isEmptyArray: Predicate<EmptyArray> = array(isNever)

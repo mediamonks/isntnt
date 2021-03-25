@@ -1,5 +1,4 @@
-import { at } from '../generics/at'
-import { isLength } from './isLength'
+import { hasLength } from './hasLength'
 
 /** @deprecated */
-export const isWithLength = at('length', isLength)
+export const isWithLength = hasLength

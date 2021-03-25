@@ -5,15 +5,14 @@ import { isPlainObject } from './isPlainObject'
 export const isSerializableObject: Predicate<SerializableObject> = <T>(
   value: T,
 ): value is Extract<T, SerializableObject> => {
-  const isObjectValue = isPlainObject(value)
-  if (isObjectValue) {
-    for (const key in value as any) {
-      if (Object.hasOwnProperty.call(value, key)) {
-        if (!isSerializable((value as any)[key])) {
-          return false
-        }
+  const valueIsPlainObject = isPlainObject(value)
+  if (valueIsPlainObject) {
+    for (const key in value) {
+      if (Object.hasOwnProperty.call(value, key) && !isSerializable(value[key])) {
+        return false
       }
     }
   }
-  return isObjectValue
+
+  return valueIsPlainObject
 }

@@ -1,4 +1,4 @@
 import { Predicate } from '../types'
 
-export const isNegative = ((value) =>
-  typeof value === 'number' && (value === 0 ? Infinity / value : value) < 0) as Predicate<number>
+export const isNegative: Predicate<number> = <T>(value: T): value is Extract<T, number> =>
+  typeof value === 'number' && (value === 0 ? Infinity / value : value) < 0

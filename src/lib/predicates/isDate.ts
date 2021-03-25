@@ -1,3 +1,4 @@
 import { instance } from '../generics/instance'
+import { Predicate } from '../types'
 
-export const isDate = instance(Date)
+export const isDate: Predicate<Date> = instance(Date)

@@ -4,18 +4,17 @@ import { isObject } from '../predicates'
 export const record = <K extends PropertyKey, T>(
   keyPredicate: Predicate<K>,
   valuePredicate: Predicate<T>,
-): Predicate<Record<K, T>> =>
-  ((value: unknown): value is Record<K, T> => {
-    const isObjectValue = isObject(value)
-    if (isObjectValue) {
-      for (const key in value as object) {
-        if (
-          Object.hasOwnProperty.call(value, key) &&
-          (!keyPredicate(key) || !valuePredicate((value as any)[key]))
-        ) {
-          return false
-        }
+): Predicate<Record<K, T>> => <U>(value: U): value is Extract<U, Record<K, T>> => {
+  const isObjectValue = isObject(value)
+  if (isObjectValue) {
+    for (const key in value) {
+      if (
+        Object.hasOwnProperty.call(value, key) &&
+        (!keyPredicate(key) || !valuePredicate(value[key]))
+      ) {
+        return false
       }
     }
-    return isObjectValue
-  }) as Predicate<Record<K, T>>
+  }
+  return isObjectValue
+}

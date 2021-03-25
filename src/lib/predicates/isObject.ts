@@ -2,7 +2,7 @@ import { and } from '../generics/and'
 import { Predicate } from '../types'
 import { isSome } from './isSome'
 
-export const isObject = and(
+export const isObject: Predicate<object> = and(
   isSome,
-  (value: unknown): value is any => typeof value === 'object',
-) as Predicate<object>
+  <T>(value: T): value is Extract<T, object> => typeof value === 'object',
+)

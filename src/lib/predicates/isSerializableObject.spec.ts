@@ -5,12 +5,13 @@ describe('isSerializableObject', () => {
     expect(isSerializableObject).toBeInstanceOf(Function)
   })
 
-  it('returns true for a plain object value', () => {
+  it('returns true for an empty object', () => {
     expect(isSerializableObject({})).toBe(true)
+    expect(isSerializableObject(Object.create(null))).toBe(true)
   })
 
   it('returns true for a serializable object value', () => {
-    expect(isSerializableObject({ foo: 12, bar: [42, null, 'abc'] })).toBe(true)
+    expect(isSerializableObject({ a: 12, b: [42, null, 'abc'] })).toBe(true)
   })
 
   it('returns true for a nested serializable object value', () => {
@@ -21,9 +22,8 @@ describe('isSerializableObject', () => {
     expect(isSerializableObject({ foo: { bar: Function } })).toBe(false)
   })
 
-  it('returns false for any value that is not a plain object', () => {
+  it('returns false for any value that is not an object', () => {
     expect(isSerializableObject(true)).toBe(false)
-    expect(isSerializableObject(Object.create(null))).toBe(false)
     expect(isSerializableObject([])).toBe(false)
     expect(isSerializableObject(/abc/)).toBe(false)
     expect(isSerializableObject(isSerializableObject)).toBe(false)
