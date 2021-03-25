@@ -34,3 +34,9 @@ export type SerializableArray = Array<Serializable> | ReadonlyArray<Serializable
 export type SerializablePrimitive = null | boolean | number | string
 export type SerializableObject = { [key: string]: Serializable | undefined }
 export type Serializable = SerializablePrimitive | SerializableObject | SerializableArray
+
+export type EmptyObject = Record<any, never>
+export type EmptyArray = Array<never> | ReadonlyArray<never>
+export type EmptyPrimitive = '' | None
+
+export type Empty = EmptyPrimitive | EmptyArray | EmptyObject
