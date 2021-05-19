@@ -1,4 +1,4 @@
-import { Predicate, Some } from '../types'
+import { Predicate, PredicateType, Some } from '../types'
 
-export const isSome: Predicate<Some> = <T>(value: T): value is Extract<T, Some> =>
+export const isSome: Predicate<Some> = <T>(value: T): value is PredicateType<Some, T> =>
   value != null && value === value

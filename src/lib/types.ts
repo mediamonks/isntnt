@@ -1,4 +1,12 @@
-export type Predicate<T> = <U>(value: U) => value is Extract<U, T>
+export type PredicateType<T, U> = (Exclude<any, U> extends never ? 1 : 0) extends 1
+  ? Extract<T, U>
+  : U extends T
+  ? U
+  : T extends U
+  ? T
+  : never
+
+export type Predicate<T> = <U>(value: U) => value is PredicateType<T, U>
 
 export type Static<T extends Predicate<any>> = T extends Predicate<infer R> ? R : never
 
@@ -22,7 +30,7 @@ export type Maybe<T> = T | None
 export type Optional<T> = T | undefined
 export type Nullable<T> = T | null
 
-export type Dictionary = Record<any, string>
+export type Dictionary = Record<string, string>
 
 export type PlainObject = Record<string | symbol, unknown>
 

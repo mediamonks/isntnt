@@ -1,6 +1,6 @@
-import { None } from '../types'
+import { None, PredicateType } from '../types'
 import { isBoolean } from './isBoolean'
 import { isSome } from './isSome'
 
-export const isObjectLike = <T>(value: T): value is Exclude<T, None | boolean> =>
+export const isObjectLike = <T>(value: T): value is PredicateType<Exclude<T, None | boolean>, T> =>
   isSome(value) && !isBoolean(value)

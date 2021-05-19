@@ -1,4 +1,4 @@
-import { Predicate } from '../types'
+import { Predicate, PredicateType } from '../types'
 
-export const isBoolean: Predicate<boolean> = <T>(value: T): value is Extract<T, boolean> =>
+export const isBoolean: Predicate<boolean> = <T>(value: T): value is PredicateType<boolean, T> =>
   typeof value === 'boolean'

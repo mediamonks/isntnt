@@ -1,6 +1,7 @@
-import { Predicate } from '../types'
+import { Predicate, PredicateType } from '../types'
 import { isSet } from '../predicates/isSet'
 
-export const set = <T>(predicate: Predicate<T>): Predicate<Set<T>> => <U>(
-  value: U,
-): value is Extract<U, Set<T>> => isSet(value) && [...value].every((element) => predicate(element))
+export const set =
+  <T>(predicate: Predicate<T>): Predicate<Set<T>> =>
+  <U>(value: U): value is PredicateType<Set<T>, U> =>
+    isSet(value) && [...value].every((element) => predicate(element))
