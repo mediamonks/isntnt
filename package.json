@@ -1,6 +1,6 @@
 {
   "name": "isntnt",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.6",
   "description": "A collection of composable JavaScript runtime type predicates with TypeScript type guard declarations",
   "main": "dist/index.js",
   "types": "dist/esm/index.d.ts",
