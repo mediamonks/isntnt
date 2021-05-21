@@ -4,5 +4,5 @@ import { isSome } from './isSome'
 
 export const isObject: Predicate<object> = and(
   isSome,
-  <T>(value: T): value is PredicateType<object, T> => typeof value === 'object',
+  <T>(value: T): value is PredicateType<any, T> => typeof value === 'object',
 )

@@ -1,4 +1,5 @@
 export { above } from './generics/above'
+export { legacyAnd } from './generics/and.legacy'
 export { and } from './generics/and'
 export { array } from './generics/array'
 export { at } from './generics/at'

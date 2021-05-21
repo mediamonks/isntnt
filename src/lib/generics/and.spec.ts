@@ -1,5 +1,6 @@
 import { and } from '../generics'
 import { isAny, isNever } from '../predicates'
+import { Predicate } from '../types'
 
 describe('and', () => {
   test('is a function', () => {
@@ -11,8 +12,8 @@ describe('and', () => {
   })
 
   test('returns its input if a single argument is provided', () => {
-    const input = (value: unknown): value is 1 => value === 1
-    expect(and(input)).toBe(input)
+    const input = (value: unknown) => value === 1
+    expect(and(input as Predicate<1>)).toBe(input)
   })
 
   test('returns true if every of its provided predicates evaluates to true', () => {

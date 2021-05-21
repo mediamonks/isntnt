@@ -1,16 +1,16 @@
-import { Predicate, Intersect, Static } from '../types'
+import { Predicate, DeepMerge, Unreachable, FillArray } from '../types'
 import { isAny } from '../predicates/isAny'
 
-export const and = <T extends ReadonlyArray<Predicate<any>>>(
-  ...predicates: T
-): Predicate<Intersect<Static<T[number]>>> => {
+export const and = <T extends ReadonlyArray<Predicate<unknown>>>(
+  ...predicates: AndPredicates<T>
+): Predicate<StaticAnd<T>> => {
   const length = predicates.length
   switch (length) {
     case 0: {
       return isAny
     }
     case 1: {
-      return predicates[0]
+      return predicates[0] as Predicate<StaticAnd<T>>
     }
     case 2: {
       const a = predicates[0]
@@ -50,3 +50,28 @@ export const and = <T extends ReadonlyArray<Predicate<any>>>(
     }
   }
 }
+
+export type AndPredicates<T extends ReadonlyArray<Predicate<unknown>>> = T extends [
+  infer A,
+  ...infer B
+]
+  ? A extends Predicate<infer C>
+    ? B extends ReadonlyArray<Predicate<infer D>>
+      ? DeepMerge<C, D> extends never
+        ? [A, ...FillArray<B, A>]
+        : [A, ...AndPredicates<B>]
+      : [A]
+    : Unreachable
+  : T
+
+export type StaticAnd<T extends ReadonlyArray<Predicate<unknown>>> = T extends [infer A]
+  ? A extends Predicate<infer B>
+    ? B
+    : Unreachable
+  : T extends [infer A, ...infer B]
+  ? A extends Predicate<infer C>
+    ? B extends ReadonlyArray<Predicate<unknown>>
+      ? DeepMerge<C, StaticAnd<B>>
+      : C
+    : Unreachable
+  : Unreachable
