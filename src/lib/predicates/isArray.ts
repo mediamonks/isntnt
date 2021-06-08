@@ -1,3 +1,3 @@
 import { Predicate } from '../types'
 
-export const isArray = Array.isArray as Predicate<Array<any> | ReadonlyArray<any>>
+export const isArray = Array.isArray as Predicate<Array<any>>

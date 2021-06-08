@@ -12,7 +12,7 @@ describe('or', () => {
 
   test('returns its input if a single argument is provided', () => {
     const input = (value: unknown): value is 1 => value === 1
-    expect(or(input)).toBe(input)
+    expect(or(input as any)).toBe(input)
   })
 
   test('returns true if every of its provided predicates evaluates to true', () => {
