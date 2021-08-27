@@ -1,4 +1,4 @@
-import { Primitive } from '../types'
+import { Predicate, Primitive } from '../types'
 
-export const literal = <T extends Primitive>(input: T) => (value: any): value is T =>
+export const literal = <T extends Primitive>(input: T): Predicate<T> => (value: unknown): value is T =>
   input === value

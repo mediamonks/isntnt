@@ -2,18 +2,22 @@ import { SerializableObject, Predicate } from '../types'
 import { isSerializable } from './isSerializable'
 import { isPlainObject } from './isPlainObject'
 
+/**
+ * Checks if a value is a serializable object.
+ */
 export const isSerializableObject: Predicate<SerializableObject> = (
   value: unknown,
 ): value is SerializableObject => {
-  const isObjectValue = isPlainObject(value)
-  if (isObjectValue) {
+  let isValid = isPlainObject(value)
+  if (isValid) {
     for (const key in value as SerializableObject) {
       if (Object.hasOwnProperty.call(value, key)) {
-        if (!isSerializable((value as SerializableObject)[key])) {
-          return false
+        isValid = isSerializable((value as SerializableObject)[key])
+        if (!isValid) {
+          break
         }
       }
     }
   }
-  return isObjectValue
+  return isValid
 }

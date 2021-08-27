@@ -1,8 +1,5 @@
-import { isAny } from '../predicates/isAny'
-import { isNever } from '../predicates/isNever'
-import { isString } from '../predicates/isString'
-import { literal } from './literal'
-import { record } from './record'
+import { isAny, isNever, isString } from '../predicates'
+import { literal, record } from '../generics'
 
 describe('record', () => {
   test('is a function', () => {

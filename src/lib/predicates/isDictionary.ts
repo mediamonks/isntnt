@@ -1,4 +1,8 @@
-import { object } from '../generics/object'
+import { record } from '../generics/record'
+import { Dictionary, Predicate } from '../types'
 import { isString } from './isString'
 
-export const isDictionary = object(isString)
+/**
+ * Checks if a value is a dictionary object.
+ */
+export const isDictionary: Predicate<Dictionary> = record(isString, isString)

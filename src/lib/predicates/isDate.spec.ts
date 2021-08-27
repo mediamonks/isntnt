@@ -19,4 +19,8 @@ describe('isDate', () => {
     expect(isDate({ length: 0 })).toBe(false)
     expect(isDate(isDate)).toBe(false)
   })
+
+  test('returns false for an InvalidDate object', () => {
+    expect(isDate(new Date(NaN))).toBe(false)
+  })
 })

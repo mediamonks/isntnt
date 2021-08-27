@@ -1,7 +1,9 @@
-import { isInt } from './isInt'
-import { isPositive } from './isPositive'
+import { isUint } from './isUint'
 
-const ceiling = Math.pow(2, 32)
+const CEILING = Math.pow(2, 32)
 
+/**
+ * Checks if a value is an unsigned (positive) integer number from 0 to 4,294,967,295.
+ */
 export const isUint32 = (value: unknown): value is number =>
-  isInt(value) && isPositive(value) && value < ceiling
+  isUint(value) && value < CEILING

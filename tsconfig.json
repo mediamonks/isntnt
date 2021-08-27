@@ -1,9 +1,16 @@
 {
-  "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ],
   "compilerOptions": {
     "target": "esnext",
     "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,

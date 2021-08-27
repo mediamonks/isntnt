@@ -11,11 +11,11 @@ export type InferredPartial<T extends {}> = {
     }
   >
 
-export type Predicate<T> = (value: unknown, ...rest: Array<unknown>) => value is T
+export type Predicate<T> = (value: unknown, ...rest: ReadonlyArray<unknown>) => value is T
 
 export type Static<T extends Predicate<any>> = T extends Predicate<infer R> ? R : never
 
-export type Constructor<T extends object, U extends Array<any> = []> = {
+export type Constructor<T extends object, U extends ReadonlyArray<any> = []> = {
   new (...rest: U): T
 }
 
@@ -33,9 +33,10 @@ export type Maybe<T> = T | None
 export type Optional<T> = T | undefined
 export type Nullable<T> = T | null
 
-export type ObjectLike = {
-  [P in PropertyKey]: unknown
-}
+export type ObjectLike = {}
+export type ArrayLike = Record<number, unknown>
+export type PlainObject = Record<PropertyKey, unknown>
+export type Dictionary = Record<string, string>
 
 export type Primitive = SerializablePrimitive | undefined | symbol | bigint
 

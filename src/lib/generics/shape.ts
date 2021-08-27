@@ -1,42 +1,39 @@
-import { Predicate, Static } from '../types'
+import { PlainObject, Predicate, Static } from '../types'
 import { isObject } from '../predicates/isObject'
-import { at } from './at'
 
-export const shape = <T extends Record<PropertyKey, Predicate<any>>>(
+export const shape = <T extends ShapePredicateRecord>(
   shape: T,
-): Predicate<
-  {
-    [P in {
-      [K in keyof T]: Extract<Static<T[K]>, undefined> extends never ? K : never
-    }[keyof T]]: Static<T[P]>
-  } &
-    {
-      [P in {
-        [K in keyof T]: Extract<Static<T[K]>, undefined> extends never ? never : K
-      }[keyof T]]?: Static<T[P]>
-    }
-> => {
-  const predicates = Object.keys(shape).map((key) => at(key, shape[key]))
+): Predicate<StaticShape<T>> => {
+  const predicates = Object.keys(shape).map((key) => {
+    const valuePredicate = shape[key]
+    return (object: PlainObject): object is any => valuePredicate(object[key])
+  })
+
   return (
     value: unknown,
-  ): value is {
-    [P in {
-      [K in keyof T]: Extract<Static<T[K]>, undefined> extends never ? K : never
-    }[keyof T]]: Static<T[P]>
-  } &
-    {
-      [P in {
-        [K in keyof T]: Extract<Static<T[K]>, undefined> extends never ? never : K
-      }[keyof T]]?: Static<T[P]>
-    } => {
-    const isObjectValue = isObject(value)
-    if (isObjectValue) {
+  ): value is StaticShape<T> => {
+    let isValid = isObject(value)
+    if (isValid) {
       for (let i = 0; i < predicates.length; ++i) {
-        if (!predicates[i](value)) {
-          return false
+        isValid = predicates[i](value as PlainObject)
+        if (!isValid) {
+          break
         }
       }
     }
-    return isObjectValue
+    return isValid
   }
 }
+
+type ShapePredicateRecord = Record<PropertyKey, Predicate<any>>
+
+type StaticShape<T extends ShapePredicateRecord> = {
+    [P in {
+      [K in keyof T]: Extract<Static<T[K]>, undefined> extends never ? K : never
+    }[keyof T]]: Static<T[P]>
+  } &
+    {
+      [P in {
+        [K in keyof T]: Extract<Static<T[K]>, undefined> extends never ? never : K
+      }[keyof T]]?: Static<T[P]>
+    }
