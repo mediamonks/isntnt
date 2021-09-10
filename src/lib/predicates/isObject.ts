@@ -1,11 +1,8 @@
 import { Predicate } from '../types'
-import { and } from '../generics/and'
-import { isSome } from './isSome'
+import { isNull } from './isNull'
 
 /**
  * Checks if a value is an object.
  */
-export const isObject: Predicate<object> = and(
-  isSome,
-  (value: unknown): value is object => typeof value === 'object',
-)
+export const isObject: Predicate<object> = (value: unknown): value is object =>
+  !isNull(value) && typeof value === 'object'
