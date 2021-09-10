@@ -35,6 +35,7 @@ describe('array', () => {
   test('returns false if some of its Array elements evaluates to true', () => {
     const isSomeArray = array(isSome)
     expect(isSomeArray([1, 'abc', null])).toBe(false)
+    expect(isSomeArray([null, 'abc', 1])).toBe(false)
     const isObjectArray = array(isSome)
     expect(isObjectArray([null, {}, []])).toBe(false)
   })
@@ -42,6 +43,7 @@ describe('array', () => {
   test('returns false if none of its Array elements evaluates to true', () => {
     const isSomeArray = array(isSome)
     expect(isSomeArray([null, undefined, NaN])).toBe(false)
+    expect(isSomeArray([null])).toBe(false)
     const isNeverArray = array(isNever)
     expect(isNeverArray([1, 'abc', true])).toBe(false)
   })

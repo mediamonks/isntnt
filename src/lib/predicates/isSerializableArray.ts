@@ -7,4 +7,13 @@ import { isSerializable } from './isSerializable'
  */
 export const isSerializableArray: Predicate<SerializableArray> = (
   value: unknown,
-): value is SerializableArray => isArray(value) && value.every(isSerializable)
+): value is SerializableArray => {
+  let isValid = isArray(value)
+  let index = 0
+  while (isValid && index < (value as Array<unknown>).length) {
+    const element = (value as Array<unknown>)[index++]
+    isValid = isSerializable(element)
+  }
+
+  return isValid
+}
