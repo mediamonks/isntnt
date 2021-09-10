@@ -1,5 +1,4 @@
 import { PlainObject, Predicate } from '../types'
-import { and } from '../generics/and'
 import { at } from '../generics/at'
 import { isObject } from './isObject'
 
