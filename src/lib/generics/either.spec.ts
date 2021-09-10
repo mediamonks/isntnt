@@ -6,8 +6,8 @@ describe('either', () => {
   })
 
   test('returns a function', () => {
-    const isEitherAbcOrXyz = either('abc', 'xyz')
-    expect(isEitherAbcOrXyz).toBeInstanceOf(Function)
+    const isEitherOf2 = either('abc', 'xyz')
+    expect(isEitherOf2).toBeInstanceOf(Function)
   })
 
   test('returns true for any input if no values are provided', () => {
@@ -19,9 +19,13 @@ describe('either', () => {
   })
 
   test('returns true if its inputs equals any of its provided values', () => {
-    const isEitherAbcOrXyz = either('abc', 'xyz')
-    expect(isEitherAbcOrXyz('abc')).toBe(true)
-    expect(isEitherAbcOrXyz('xyz')).toBe(true)
+    const isEitherOf2 = either('abc', 'xyz')
+    expect(isEitherOf2('abc')).toBe(true)
+    expect(isEitherOf2('xyz')).toBe(true)
+    const isEitherOf3 = either('abc', 'mno', 'xyz')
+    expect(isEitherOf3('abc')).toBe(true)
+    expect(isEitherOf3('mno')).toBe(true)
+    expect(isEitherOf3('xyz')).toBe(true)
   })
 
   test('returns false if its inputs equals none of its provided values', () => {
